@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "AVHexColor.h"
-#import "TimelineViewController.h"
+#import "LoginViewController.h"
 
 @implementation AppDelegate
 
@@ -67,7 +67,7 @@
 
 - (void)customizeWindow
 {
-    TimelineViewController *vc = [[TimelineViewController alloc] init];
+    LoginViewController *vc = [[LoginViewController alloc] init];
     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];

@@ -106,6 +106,8 @@
 - (void)handleSignOut
 {
     NSLog(@"handle sign out");
+
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)handleTweet

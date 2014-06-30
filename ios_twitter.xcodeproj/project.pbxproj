@@ -26,6 +26,9 @@
 		203E7323196108B000C3CB8E /* TweetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 203E7321196108B000C3CB8E /* TweetViewController.m */; };
 		203E7324196108B000C3CB8E /* TweetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 203E7322196108B000C3CB8E /* TweetViewController.xib */; };
 		203E73281961252500C3CB8E /* UIScrollView+InfiniteScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = 203E73271961252500C3CB8E /* UIScrollView+InfiniteScroll.m */; };
+		203E732D1961303E00C3CB8E /* TwitterClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 203E732C1961303E00C3CB8E /* TwitterClient.m */; };
+		203E733219613D7000C3CB8E /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 203E733019613D7000C3CB8E /* LoginViewController.m */; };
+		203E733319613D7000C3CB8E /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 203E733119613D7000C3CB8E /* LoginViewController.xib */; };
 		E29910DAD0204799B49F921B /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4067FF078C98466F91D533E7 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -67,6 +70,11 @@
 		203E7322196108B000C3CB8E /* TweetViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TweetViewController.xib; sourceTree = "<group>"; };
 		203E73261961252500C3CB8E /* UIScrollView+InfiniteScroll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+InfiniteScroll.h"; sourceTree = "<group>"; };
 		203E73271961252500C3CB8E /* UIScrollView+InfiniteScroll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+InfiniteScroll.m"; sourceTree = "<group>"; };
+		203E732B1961303E00C3CB8E /* TwitterClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwitterClient.h; sourceTree = "<group>"; };
+		203E732C1961303E00C3CB8E /* TwitterClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterClient.m; sourceTree = "<group>"; };
+		203E732F19613D7000C3CB8E /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		203E733019613D7000C3CB8E /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		203E733119613D7000C3CB8E /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		238102D5DD0145F287F3D3E2 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		4067FF078C98466F91D533E7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -174,6 +182,7 @@
 		201284B51960FAE70068EAF8 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				203E732E19613D5A00C3CB8E /* Login */,
 				203E731A196102D500C3CB8E /* Compose */,
 				203E73131960FCF500C3CB8E /* Timeline */,
 				203E7319196102BD00C3CB8E /* Tweet */,
@@ -184,6 +193,7 @@
 		201284B61960FAF40068EAF8 /* Clients */ = {
 			isa = PBXGroup;
 			children = (
+				203E732A19612FFE00C3CB8E /* Twitter */,
 			);
 			name = Clients;
 			sourceTree = "<group>";
@@ -233,6 +243,25 @@
 				203E73271961252500C3CB8E /* UIScrollView+InfiniteScroll.m */,
 			);
 			name = "Infinite Scroll";
+			sourceTree = "<group>";
+		};
+		203E732A19612FFE00C3CB8E /* Twitter */ = {
+			isa = PBXGroup;
+			children = (
+				203E732B1961303E00C3CB8E /* TwitterClient.h */,
+				203E732C1961303E00C3CB8E /* TwitterClient.m */,
+			);
+			name = Twitter;
+			sourceTree = "<group>";
+		};
+		203E732E19613D5A00C3CB8E /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				203E732F19613D7000C3CB8E /* LoginViewController.h */,
+				203E733019613D7000C3CB8E /* LoginViewController.m */,
+				203E733119613D7000C3CB8E /* LoginViewController.xib */,
+			);
+			name = Login;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -314,6 +343,7 @@
 			files = (
 				203E73181960FD0B00C3CB8E /* TimelineViewController.xib in Resources */,
 				201284911960FA080068EAF8 /* InfoPlist.strings in Resources */,
+				203E733319613D7000C3CB8E /* LoginViewController.xib in Resources */,
 				201284991960FA080068EAF8 /* Images.xcassets in Resources */,
 				203E7324196108B000C3CB8E /* TweetViewController.xib in Resources */,
 				203E731F1961035500C3CB8E /* ComposeViewController.xib in Resources */,
@@ -368,9 +398,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				203E733219613D7000C3CB8E /* LoginViewController.m in Sources */,
 				201284971960FA080068EAF8 /* AppDelegate.m in Sources */,
 				201284931960FA080068EAF8 /* main.m in Sources */,
 				203E73281961252500C3CB8E /* UIScrollView+InfiniteScroll.m in Sources */,
+				203E732D1961303E00C3CB8E /* TwitterClient.m in Sources */,
 				203E73171960FD0B00C3CB8E /* TimelineViewController.m in Sources */,
 				203E731E1961035500C3CB8E /* ComposeViewController.m in Sources */,
 				203E7323196108B000C3CB8E /* TweetViewController.m in Sources */,
