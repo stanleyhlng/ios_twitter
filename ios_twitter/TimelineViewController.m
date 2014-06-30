@@ -10,6 +10,7 @@
 #import "ComposeViewController.h"
 #import "TweetViewController.h"
 #import "AVHexColor.h"
+#import "UIScrollView+InfiniteScroll.h"
 
 @interface TimelineViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tweetsTableView;
@@ -125,6 +126,10 @@
     
     self.tweetsTableView.dataSource = self;
     self.tweetsTableView.delegate = self;
+    [self.tweetsTableView addInfiniteScrollWithHandler:^(UIScrollView *scrollView) {
+        [self handleLoadMore];
+        [self.tweetsTableView finishInfiniteScroll];
+    }];
 }
 
 #pragma UITableViewDataSource methods

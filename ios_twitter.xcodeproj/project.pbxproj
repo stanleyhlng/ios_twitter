@@ -25,6 +25,7 @@
 		203E731F1961035500C3CB8E /* ComposeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 203E731D1961035500C3CB8E /* ComposeViewController.xib */; };
 		203E7323196108B000C3CB8E /* TweetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 203E7321196108B000C3CB8E /* TweetViewController.m */; };
 		203E7324196108B000C3CB8E /* TweetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 203E7322196108B000C3CB8E /* TweetViewController.xib */; };
+		203E73281961252500C3CB8E /* UIScrollView+InfiniteScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = 203E73271961252500C3CB8E /* UIScrollView+InfiniteScroll.m */; };
 		E29910DAD0204799B49F921B /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4067FF078C98466F91D533E7 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -64,6 +65,8 @@
 		203E7320196108B000C3CB8E /* TweetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetViewController.h; sourceTree = "<group>"; };
 		203E7321196108B000C3CB8E /* TweetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweetViewController.m; sourceTree = "<group>"; };
 		203E7322196108B000C3CB8E /* TweetViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TweetViewController.xib; sourceTree = "<group>"; };
+		203E73261961252500C3CB8E /* UIScrollView+InfiniteScroll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+InfiniteScroll.h"; sourceTree = "<group>"; };
+		203E73271961252500C3CB8E /* UIScrollView+InfiniteScroll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+InfiniteScroll.m"; sourceTree = "<group>"; };
 		238102D5DD0145F287F3D3E2 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		4067FF078C98466F91D533E7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -128,6 +131,7 @@
 		2012848C1960FA080068EAF8 /* ios_twitter */ = {
 			isa = PBXGroup;
 			children = (
+				203E73251961250A00C3CB8E /* Categories */,
 				201284B61960FAF40068EAF8 /* Clients */,
 				201284B51960FAE70068EAF8 /* Controllers */,
 				201284951960FA080068EAF8 /* AppDelegate.h */,
@@ -212,6 +216,23 @@
 				203E731D1961035500C3CB8E /* ComposeViewController.xib */,
 			);
 			name = Compose;
+			sourceTree = "<group>";
+		};
+		203E73251961250A00C3CB8E /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				203E73291961252C00C3CB8E /* Infinite Scroll */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		203E73291961252C00C3CB8E /* Infinite Scroll */ = {
+			isa = PBXGroup;
+			children = (
+				203E73261961252500C3CB8E /* UIScrollView+InfiniteScroll.h */,
+				203E73271961252500C3CB8E /* UIScrollView+InfiniteScroll.m */,
+			);
+			name = "Infinite Scroll";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -349,6 +370,7 @@
 			files = (
 				201284971960FA080068EAF8 /* AppDelegate.m in Sources */,
 				201284931960FA080068EAF8 /* main.m in Sources */,
+				203E73281961252500C3CB8E /* UIScrollView+InfiniteScroll.m in Sources */,
 				203E73171960FD0B00C3CB8E /* TimelineViewController.m in Sources */,
 				203E731E1961035500C3CB8E /* ComposeViewController.m in Sources */,
 				203E7323196108B000C3CB8E /* TweetViewController.m in Sources */,
