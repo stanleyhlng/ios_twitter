@@ -1,0 +1,51 @@
+PODS:
+  - AFNetworking (2.2.4):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+    - AFNetworking/UIKit
+  - AFNetworking/NSURLConnection (2.2.4):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.2.4):
+    - AFNetworking/NSURLConnection
+  - AFNetworking/Reachability (2.2.4)
+  - AFNetworking/Security (2.2.4)
+  - AFNetworking/Serialization (2.2.4)
+  - AFNetworking/UIKit (2.2.4):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+  - AVHexColor (1.2.0)
+  - BDBOAuth1Manager (1.2.1):
+    - AFNetworking/NSURLConnection (~> 2.2.0)
+    - AFNetworking/NSURLSession (~> 2.2.0)
+  - GSProgressHUD (0.2)
+  - Reveal-iOS-SDK (1.0.4)
+  - SDWebImage (3.6):
+    - SDWebImage/Core
+  - SDWebImage/Core (3.6)
+  - UIActivityIndicator-for-SDWebImage (1.0.5):
+    - SDWebImage (~> 3.2)
+
+DEPENDENCIES:
+  - AFNetworking (~> 2.2.0)
+  - AVHexColor (~> 1.2.0)
+  - BDBOAuth1Manager (~> 1.2.1)
+  - GSProgressHUD (~> 0.2)
+  - Reveal-iOS-SDK (~> 1.0.4)
+  - SDWebImage (~> 3.6)
+  - UIActivityIndicator-for-SDWebImage (~> 1.0.5)
+
+SPEC CHECKSUMS:
+  AFNetworking: ab63e259fe91eef4519b371ef0a4955af0e73e64
+  AVHexColor: b47099552819a98dc58d7931f0f43eb6e2308342
+  BDBOAuth1Manager: 55c7390b5018cac757e322ad8f9ab782b0f9fd01
+  GSProgressHUD: 61321923fbada3ab29803c2f4fb5a0ad452923de
+  Reveal-iOS-SDK: d3c8e109d42219daaa7a6e1ad2de34f0bdbb7a88
+  SDWebImage: c6989652c1cdf27cbdf3f56957e2030f825af5bc
+  UIActivityIndicator-for-SDWebImage: d9e46f1592d04cfbeda67bb6d7bba5348558697b
+
+COCOAPODS: 0.33.1

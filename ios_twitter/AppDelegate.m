@@ -46,4 +46,20 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+- (void)customizeStatusBar
+{
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+}
+
+- (void)customizeNavBarAppearance
+{
+    id navigationBarAppearance = [UINavigationBar appearance];
+    [navigationBarAppearance setTitleTextAttributes:
+     @{
+       NSForegroundColorAttributeName:[UIColor whiteColor],
+       NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0f]
+       }];
+    [navigationBarAppearance setTintColor:[AVHexColor colorWithHexString:@"#858d98"]];
+    [navigationBarAppearance setBarTintColor:[AVHexColor colorWithHexString:@"#2e3f53"]];
+}
 @end
