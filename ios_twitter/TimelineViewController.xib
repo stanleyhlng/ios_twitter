@@ -15,13 +15,19 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="dGv-sH-rZz">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="dGv-sH-rZz">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </tableView>
             </subviews>
             <color key="backgroundColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="dGv-sH-rZz" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="1G8-CO-bvH"/>
+                <constraint firstAttribute="trailing" secondItem="dGv-sH-rZz" secondAttribute="trailing" id="CZ3-Gq-9BR"/>
+                <constraint firstAttribute="bottom" secondItem="dGv-sH-rZz" secondAttribute="bottom" id="blx-bh-Mhh"/>
+                <constraint firstItem="dGv-sH-rZz" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="lmi-xI-hgf"/>
+            </constraints>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
