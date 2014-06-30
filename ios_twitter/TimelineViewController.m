@@ -13,11 +13,13 @@
 
 @interface TimelineViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tweetsTableView;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 - (void)customizeLeftBarButton;
 - (void)customizeRightBarButton;
 - (void)customizeTitleView;
 - (void)handleCompose;
+- (void)handleRefresh;
 - (void)handleSignOut;
 - (void)handleTweet;
 - (void)setupTableView;
@@ -85,6 +87,15 @@
     [self presentViewController:nvc animated:YES completion:nil];
 }
 
+- (void)handleRefresh
+{
+    NSLog(@"handle refresh");
+    
+    [self.refreshControl endRefreshing];
+    
+    [self.tweetsTableView reloadData];
+}
+
 - (void)handleSignOut
 {
     NSLog(@"handle sign out");
@@ -101,6 +112,10 @@
 - (void)setupTableView
 {
     NSLog(@"setup table view");
+    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(handleRefresh) forControlEvents:UIControlEventValueChanged];
+    [self.tweetsTableView addSubview:self.refreshControl];
     
     self.tweetsTableView.dataSource = self;
     self.tweetsTableView.delegate = self;
