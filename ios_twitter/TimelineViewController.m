@@ -19,6 +19,7 @@
 - (void)customizeRightBarButton;
 - (void)customizeTitleView;
 - (void)handleCompose;
+- (void)handleLoadMore;
 - (void)handleRefresh;
 - (void)handleSignOut;
 - (void)handleTweet;
@@ -85,6 +86,11 @@
     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
     
     [self presentViewController:nvc animated:YES completion:nil];
+}
+
+- (void)handleLoadMore
+{
+    NSLog(@"handle load more");
 }
 
 - (void)handleRefresh
