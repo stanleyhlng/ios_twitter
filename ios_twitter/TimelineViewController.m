@@ -8,14 +8,19 @@
 
 #import "TimelineViewController.h"
 #import "ComposeViewController.h"
+#import "TweetViewController.h"
 #import "AVHexColor.h"
 
 @interface TimelineViewController ()
+@property (weak, nonatomic) IBOutlet UITableView *tweetsTableView;
+
 - (void)customizeLeftBarButton;
 - (void)customizeRightBarButton;
 - (void)customizeTitleView;
 - (void)handleCompose;
 - (void)handleSignOut;
+- (void)handleTweet;
+- (void)setupTableView;
 @end
 
 @implementation TimelineViewController
@@ -36,6 +41,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [self setupTableView];
 }
 
 - (void)didReceiveMemoryWarning
@@ -82,6 +88,48 @@
 - (void)handleSignOut
 {
     NSLog(@"handle sign out");
+}
+
+- (void)handleTweet
+{
+    NSLog(@"handle tweet");
+    
+    TweetViewController *vc = [[TweetViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)setupTableView
+{
+    NSLog(@"setup table view");
+    
+    self.tweetsTableView.dataSource = self;
+    self.tweetsTableView.delegate = self;
+}
+
+#pragma UITableViewDataSource methods
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"cell for row at index path: %d", indexPath.row);
+    
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+    cell.textLabel.text = @"Tweet";
+    return cell;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 20;
+}
+
+#pragma UITableViewDelegate methods
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"did select row at index path: %d", indexPath.row);
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self handleTweet];
 }
 
 @end

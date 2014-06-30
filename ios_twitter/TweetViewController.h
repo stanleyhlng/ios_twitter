@@ -1,5 +1,5 @@
 //
-//  TimelineViewController.h
+//  TweetViewController.h
 //  ios_twitter
 //
 //  Created by Stanley Ng on 6/29/14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TimelineViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
+@interface TweetViewController : UIViewController
 
 @end
