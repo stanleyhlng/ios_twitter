@@ -9,7 +9,11 @@
 #import "TimelineViewController.h"
 
 @interface TimelineViewController ()
-
+- (void)customizeLeftBarButton;
+- (void)customizeRightBarButton;
+- (void)customizeTitleView;
+- (void)handleSignOut;
+- (void)handleCompose;
 @end
 
 @implementation TimelineViewController
@@ -19,6 +23,9 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        [self customizeLeftBarButton];
+        [self customizeRightBarButton];
+        [self customizeTitleView];
     }
     return self;
 }
@@ -33,6 +40,41 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)customizeLeftBarButton
+{
+    UIBarButtonItem *barButtonItem =
+    [[UIBarButtonItem alloc] initWithTitle:@"Sign out"
+                                     style:UIBarButtonItemStyleBordered
+                                    target:self
+                                    action:@selector(handleSignOut)];
+    self.navigationItem.leftBarButtonItem = barButtonItem;
+}
+
+- (void)customizeRightBarButton
+{
+    UIBarButtonItem *barButtonItem =
+    [[UIBarButtonItem alloc] initWithTitle:@"New"
+                                     style:UIBarButtonItemStyleBordered
+                                    target:self
+                                    action:@selector(handleCompose)];
+    self.navigationItem.rightBarButtonItem = barButtonItem;
+}
+
+- (void)customizeTitleView
+{
+    self.title = @"Home";
+}
+
+- (void)handleSignOut
+{
+    NSLog(@"handle sign out");
+}
+
+- (void)handleCompose
+{
+    NSLog(@"handle compose");
 }
 
 @end
