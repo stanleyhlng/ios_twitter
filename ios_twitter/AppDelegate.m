@@ -7,15 +7,17 @@
 //
 
 #import "AppDelegate.h"
+#import "AVHexColor.h"
+#import "TimelineViewController.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
+    [self customizeStatusBar];
+    [self customizeNavBarAppearance];
+    [self customizeWindow];
+    
     return YES;
 }
 
@@ -59,7 +61,19 @@
        NSForegroundColorAttributeName:[UIColor whiteColor],
        NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Bold" size:16.0f]
        }];
-    [navigationBarAppearance setTintColor:[AVHexColor colorWithHexString:@"#858d98"]];
-    [navigationBarAppearance setBarTintColor:[AVHexColor colorWithHexString:@"#2e3f53"]];
+    [navigationBarAppearance setTintColor:[AVHexColor colorWithHexString:@"#ffffff"]];
+    [navigationBarAppearance setBarTintColor:[AVHexColor colorWithHexString:@"#55acee"]];
 }
+
+- (void)customizeWindow
+{
+    TimelineViewController *vc = [[TimelineViewController alloc] init];
+    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
+    
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.backgroundColor = [UIColor whiteColor];
+    self.window.rootViewController = nvc;
+    [self.window makeKeyAndVisible];
+}
+
 @end
