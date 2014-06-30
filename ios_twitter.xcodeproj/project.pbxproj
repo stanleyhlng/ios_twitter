@@ -21,6 +21,8 @@
 		201284AC1960FA090068EAF8 /* ios_twitterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 201284AB1960FA090068EAF8 /* ios_twitterTests.m */; };
 		203E73171960FD0B00C3CB8E /* TimelineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 203E73151960FD0B00C3CB8E /* TimelineViewController.m */; };
 		203E73181960FD0B00C3CB8E /* TimelineViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 203E73161960FD0B00C3CB8E /* TimelineViewController.xib */; };
+		203E731E1961035500C3CB8E /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 203E731C1961035500C3CB8E /* ComposeViewController.m */; };
+		203E731F1961035500C3CB8E /* ComposeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 203E731D1961035500C3CB8E /* ComposeViewController.xib */; };
 		E29910DAD0204799B49F921B /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4067FF078C98466F91D533E7 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -54,6 +56,9 @@
 		203E73141960FD0B00C3CB8E /* TimelineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimelineViewController.h; sourceTree = "<group>"; };
 		203E73151960FD0B00C3CB8E /* TimelineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimelineViewController.m; sourceTree = "<group>"; };
 		203E73161960FD0B00C3CB8E /* TimelineViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimelineViewController.xib; sourceTree = "<group>"; };
+		203E731B1961035500C3CB8E /* ComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposeViewController.h; sourceTree = "<group>"; };
+		203E731C1961035500C3CB8E /* ComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComposeViewController.m; sourceTree = "<group>"; };
+		203E731D1961035500C3CB8E /* ComposeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ComposeViewController.xib; sourceTree = "<group>"; };
 		238102D5DD0145F287F3D3E2 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		4067FF078C98466F91D533E7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -160,7 +165,9 @@
 		201284B51960FAE70068EAF8 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				203E731A196102D500C3CB8E /* Compose */,
 				203E73131960FCF500C3CB8E /* Timeline */,
+				203E7319196102BD00C3CB8E /* Tweet */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -180,6 +187,23 @@
 				203E73161960FD0B00C3CB8E /* TimelineViewController.xib */,
 			);
 			name = Timeline;
+			sourceTree = "<group>";
+		};
+		203E7319196102BD00C3CB8E /* Tweet */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Tweet;
+			sourceTree = "<group>";
+		};
+		203E731A196102D500C3CB8E /* Compose */ = {
+			isa = PBXGroup;
+			children = (
+				203E731B1961035500C3CB8E /* ComposeViewController.h */,
+				203E731C1961035500C3CB8E /* ComposeViewController.m */,
+				203E731D1961035500C3CB8E /* ComposeViewController.xib */,
+			);
+			name = Compose;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -262,6 +286,7 @@
 				203E73181960FD0B00C3CB8E /* TimelineViewController.xib in Resources */,
 				201284911960FA080068EAF8 /* InfoPlist.strings in Resources */,
 				201284991960FA080068EAF8 /* Images.xcassets in Resources */,
+				203E731F1961035500C3CB8E /* ComposeViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -316,6 +341,7 @@
 				201284971960FA080068EAF8 /* AppDelegate.m in Sources */,
 				201284931960FA080068EAF8 /* main.m in Sources */,
 				203E73171960FD0B00C3CB8E /* TimelineViewController.m in Sources */,
+				203E731E1961035500C3CB8E /* ComposeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,33 +1,32 @@
 //
-//  TimelineViewController.m
+//  ComposeViewController.m
 //  ios_twitter
 //
 //  Created by Stanley Ng on 6/29/14.
 //  Copyright (c) 2014 Stanley Ng. All rights reserved.
 //
 
-#import "TimelineViewController.h"
 #import "ComposeViewController.h"
 #import "AVHexColor.h"
 
-@interface TimelineViewController ()
+@interface ComposeViewController ()
 - (void)customizeLeftBarButton;
 - (void)customizeRightBarButton;
 - (void)customizeTitleView;
-- (void)handleCompose;
-- (void)handleSignOut;
+- (void)handleCancel;
+- (void)handleTweet;
 @end
 
-@implementation TimelineViewController
+@implementation ComposeViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        [self customizeTitleView];
         [self customizeLeftBarButton];
         [self customizeRightBarButton];
-        [self customizeTitleView];
     }
     return self;
 }
@@ -47,41 +46,38 @@
 - (void)customizeLeftBarButton
 {
     UIBarButtonItem *barButtonItem =
-    [[UIBarButtonItem alloc] initWithTitle:@"Sign out"
+    [[UIBarButtonItem alloc] initWithTitle:@"Cancel"
                                      style:UIBarButtonItemStyleBordered
                                     target:self
-                                    action:@selector(handleSignOut)];
+                                    action:@selector(handleCancel)];
     self.navigationItem.leftBarButtonItem = barButtonItem;
 }
 
 - (void)customizeRightBarButton
 {
     UIBarButtonItem *barButtonItem =
-    [[UIBarButtonItem alloc] initWithTitle:@"New"
+    [[UIBarButtonItem alloc] initWithTitle:@"Tweet"
                                      style:UIBarButtonItemStyleBordered
                                     target:self
-                                    action:@selector(handleCompose)];
+                                    action:@selector(handleTweet)];
     self.navigationItem.rightBarButtonItem = barButtonItem;
 }
 
 - (void)customizeTitleView
 {
-    self.title = @"Home";
+    self.title = @"";
 }
 
-- (void)handleCompose
+- (void)handleCancel
 {
-    NSLog(@"handle compose");
+    NSLog(@"handle cancel");
     
-    ComposeViewController *vc = [[ComposeViewController alloc] init];
-    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
-    
-    [self presentViewController:nvc animated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)handleSignOut
+- (void)handleTweet
 {
-    NSLog(@"handle sign out");
+    NSLog(@"handle tweet");
 }
 
 @end
