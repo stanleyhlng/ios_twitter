@@ -29,6 +29,7 @@
 		203E732D1961303E00C3CB8E /* TwitterClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 203E732C1961303E00C3CB8E /* TwitterClient.m */; };
 		203E733219613D7000C3CB8E /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 203E733019613D7000C3CB8E /* LoginViewController.m */; };
 		203E733319613D7000C3CB8E /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 203E733119613D7000C3CB8E /* LoginViewController.xib */; };
+		203E73371962852C00C3CB8E /* NSURL+DictionaryFromQueryString.m in Sources */ = {isa = PBXBuildFile; fileRef = 203E73361962852C00C3CB8E /* NSURL+DictionaryFromQueryString.m */; };
 		E29910DAD0204799B49F921B /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4067FF078C98466F91D533E7 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -75,6 +76,8 @@
 		203E732F19613D7000C3CB8E /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		203E733019613D7000C3CB8E /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		203E733119613D7000C3CB8E /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		203E73351962852C00C3CB8E /* NSURL+DictionaryFromQueryString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+DictionaryFromQueryString.h"; sourceTree = "<group>"; };
+		203E73361962852C00C3CB8E /* NSURL+DictionaryFromQueryString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+DictionaryFromQueryString.m"; sourceTree = "<group>"; };
 		238102D5DD0145F287F3D3E2 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		4067FF078C98466F91D533E7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -231,6 +234,7 @@
 		203E73251961250A00C3CB8E /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				203E7334196284C100C3CB8E /* Dicitonary From Query String */,
 				203E73291961252C00C3CB8E /* Infinite Scroll */,
 			);
 			name = Categories;
@@ -262,6 +266,15 @@
 				203E733119613D7000C3CB8E /* LoginViewController.xib */,
 			);
 			name = Login;
+			sourceTree = "<group>";
+		};
+		203E7334196284C100C3CB8E /* Dicitonary From Query String */ = {
+			isa = PBXGroup;
+			children = (
+				203E73351962852C00C3CB8E /* NSURL+DictionaryFromQueryString.h */,
+				203E73361962852C00C3CB8E /* NSURL+DictionaryFromQueryString.m */,
+			);
+			name = "Dicitonary From Query String";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -398,6 +411,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				203E73371962852C00C3CB8E /* NSURL+DictionaryFromQueryString.m in Sources */,
 				203E733219613D7000C3CB8E /* LoginViewController.m in Sources */,
 				201284971960FA080068EAF8 /* AppDelegate.m in Sources */,
 				201284931960FA080068EAF8 /* main.m in Sources */,

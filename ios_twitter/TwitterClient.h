@@ -17,4 +17,14 @@
 - (AFHTTPRequestOperation *)homeTimelineWithSuccess:(void(^)(AFHTTPRequestOperation *operation, id response))success
                                             failure:(void(^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
+- (void)login;
+
+// POST oauth/request_token
+// https://dev.twitter.com/docs/api/1/post/oauth/request_token
+
+// Fetches a request token and retrieve and authorization url
+// Should open a browser in onReceivedRequestToken once the url has been received
+
+
+
 @end

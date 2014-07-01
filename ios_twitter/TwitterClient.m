@@ -16,7 +16,9 @@
 
     dispatch_once(&onceToken, ^{
         if (instance == nil) {
-            instance = [[TwitterClient alloc] init];
+            instance = [[TwitterClient alloc] initWithBaseURL:[NSURL URLWithString:@"https://api.twitter.com"]
+                                                  consumerKey:@"L82BdXwfdKHIQL036NO12qwpx"
+                                               consumerSecret:@"zbBxQNTLry6add284m8AecDf5VRdIpuUpuuVu0TM41tci8a0Jd"];
         }
     });
     
@@ -35,5 +37,23 @@
              }
              failure:failure];
 };
+
+- (void)login
+{
+    [self fetchRequestTokenWithPath:@"oauth/request_token"
+                             method:@"POST"
+                        callbackURL:[NSURL URLWithString:@"http://demo.stanleyhlng.com/ios-twitter/oauth.php"]
+                              scope:nil
+                            success:^(BDBOAuthToken *requestToken) {
+                                NSLog(@"Got the request token.");
+                                
+                                NSString *authUrl = [NSString stringWithFormat:@"https://api.twitter.com/oauth/authorize?oauth_token=%@", requestToken.token];
+                                
+                                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:authUrl]];
+                            }
+                            failure:^(NSError *error) {
+                                NSLog(@"Fail to get the request token.");
+                            }];
+}
 
 @end

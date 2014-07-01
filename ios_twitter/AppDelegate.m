@@ -9,6 +9,8 @@
 #import "AppDelegate.h"
 #import "AVHexColor.h"
 #import "LoginViewController.h"
+#import "NSURL+DictionaryFromQueryString.h"
+#import "TwitterClient.h"
 
 @implementation AppDelegate
 
@@ -74,6 +76,37 @@
     self.window.backgroundColor = [UIColor whiteColor];
     self.window.rootViewController = nvc;
     [self.window makeKeyAndVisible];
+}
+
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation
+{
+    NSLog(@"url.scheme: %@", url.scheme);
+    NSLog(@"url.host: %@", url.host);
+    
+    if ([url.scheme isEqualToString:@"stanleyhlngiostwitterapp"])
+    {
+        if ([url.host isEqualToString:@"request"])
+        {
+            NSDictionary *parameters = [url dictionaryFromQueryString];
+            if (parameters[@"oauth_token"] && parameters[@"oauth_verifier"]) {
+                TwitterClient *client = [TwitterClient instance];
+                [client fetchAccessTokenWithPath:@"/oauth/access_token"
+                                          method:@"POST"
+                                    requestToken:[BDBOAuthToken tokenWithQueryString:url.query]
+                                         success:^(BDBOAuthToken *accessToken) {
+                                             NSLog(@"access token: %@", accessToken);
+                                         }
+                                         failure:^(NSError *error) {
+                                             NSLog(@"Fail to get the access token.");
+                                         }];
+            }
+        }
+        return YES;
+    }
+    return NO;
 }
 
 @end

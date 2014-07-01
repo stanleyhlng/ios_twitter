@@ -8,6 +8,7 @@
 
 #import "LoginViewController.h"
 #import "TimelineViewController.h"
+#import "TwitterClient.h"
 
 @interface LoginViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *signInButton;
@@ -58,8 +59,10 @@
 {
     NSLog(@"handle sign in");
     
-    TimelineViewController *vc = [[TimelineViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
+    [[TwitterClient instance] login];
+    
+    //TimelineViewController *vc = [[TimelineViewController alloc] init];
+    //[self.navigationController pushViewController:vc animated:YES];
 }
 
 @end
