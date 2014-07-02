@@ -80,7 +80,7 @@
     TimelineViewController *vc = [[TimelineViewController alloc] init];
     
     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
-    nvc.modalPresentationStyle = UIModalTransitionStyleCrossDissolve;
+    nvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     
     [self presentViewController:nvc animated:YES completion:nil];
 }
