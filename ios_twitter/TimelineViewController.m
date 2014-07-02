@@ -11,6 +11,7 @@
 #import "TweetViewController.h"
 #import "AVHexColor.h"
 #import "UIScrollView+InfiniteScroll.h"
+#import "TwitterClient.h"
 
 @interface TimelineViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tweetsTableView;
@@ -32,7 +33,7 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+    if (self) {       
         // Custom initialization
         [self customizeLeftBarButton];
         [self customizeRightBarButton];
@@ -107,7 +108,10 @@
 {
     NSLog(@"handle sign out");
 
-    [self.navigationController popViewControllerAnimated:YES];
+    [[TwitterClient instance] removeAccessToken];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+    //[self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)handleTweet

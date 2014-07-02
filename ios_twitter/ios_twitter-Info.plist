@@ -29,7 +29,7 @@
 			<string>com.stanleyhlng.demo.ios-twitter</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>stanleyhlngiostwitterapp</string>
+				<string>oauth</string>
 			</array>
 		</dict>
 	</array>

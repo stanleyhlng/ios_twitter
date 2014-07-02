@@ -32,6 +32,11 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    NSLog(@"is_authorized: %d", [[TwitterClient instance] isAuthorized]);
+    if ([[TwitterClient instance] isAuthorized] == 1) {
+        [self loadTimeLineView];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -59,9 +64,26 @@
 {
     NSLog(@"handle sign in");
     
-    [[TwitterClient instance] login];
+    [[TwitterClient instance] connectWithSuccess:^
+    {
+        NSLog(@"Login view controller: connect ok!");
+    }
+                                         failure:^(NSError *error)
+    {
+        NSLog(@"Login view controller: connect fail!");
+    }];
     
     //TimelineViewController *vc = [[TimelineViewController alloc] init];
+    //[self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)loadTimeLineView
+{
+    NSLog(@"Load timeline view");
+    TimelineViewController *vc = [[TimelineViewController alloc] init];
+    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
+    
+    [self presentViewController:nvc animated:YES completion:nil];
     //[self.navigationController pushViewController:vc animated:YES];
 }
 

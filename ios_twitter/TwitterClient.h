@@ -17,14 +17,27 @@
 - (AFHTTPRequestOperation *)homeTimelineWithSuccess:(void(^)(AFHTTPRequestOperation *operation, id response))success
                                             failure:(void(^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
-- (void)login;
-
 // POST oauth/request_token
 // https://dev.twitter.com/docs/api/1/post/oauth/request_token
+- (void)requestTokenWithSuccess:(void(^)(BDBOAuthToken *requestToken))success
+                        failure:(void(^)(NSError *error))failure;
 
-// Fetches a request token and retrieve and authorization url
-// Should open a browser in onReceivedRequestToken once the url has been received
+// POST oauth/access_token
+// https://dev.twitter.com/docs/api/1/post/oauth/access_token
+- (void)accessTokenWithURL:(NSURL *)url
+                   success:(void(^)(BDBOAuthToken *accessToken))success
+                   failure:(void(^)(NSError *error))failure;
+
+- (void)connectWithSuccess:(void(^)())success
+                   failure:(void(^)(NSError *error))failure;
+
+- (void)authorizeWithURL:(NSURL *)url
+                 success:(void(^)())success
+                 failure:(void(^)(NSError *error))failure;
 
 
+- (void)removeAccessToken;
+
+- (BOOL)isAuthenticated;
 
 @end

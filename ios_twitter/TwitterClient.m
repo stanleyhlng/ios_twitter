@@ -7,6 +7,7 @@
 //
 
 #import "TwitterClient.h"
+#import "NSURL+DictionaryFromQueryString.h"
 
 @implementation TwitterClient
 
@@ -38,22 +39,108 @@
              failure:failure];
 };
 
-- (void)login
+// POST oauth/request_token
+// https://dev.twitter.com/docs/api/1/post/oauth/request_token
+- (void)requestTokenWithSuccess:(void(^)(BDBOAuthToken *requestToken))success
+                        failure:(void(^)(NSError *error))failure
 {
     [self fetchRequestTokenWithPath:@"oauth/request_token"
                              method:@"POST"
-                        callbackURL:[NSURL URLWithString:@"http://demo.stanleyhlng.com/ios-twitter/oauth.php"]
+                        callbackURL:[NSURL URLWithString:@"oauth://ios_twitter"]
                               scope:nil
                             success:^(BDBOAuthToken *requestToken) {
-                                NSLog(@"Got the request token.");
-                                
-                                NSString *authUrl = [NSString stringWithFormat:@"https://api.twitter.com/oauth/authorize?oauth_token=%@", requestToken.token];
-                                
-                                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:authUrl]];
+                                NSLog(@"request_token: %@", requestToken.token);
+                                success(requestToken);
                             }
                             failure:^(NSError *error) {
-                                NSLog(@"Fail to get the request token.");
+                                NSLog(@"request_token: %@", error);
+                                failure(error);
                             }];
+}
+
+// POST oauth/access_token
+// https://dev.twitter.com/docs/api/1/post/oauth/access_token
+- (void)accessTokenWithURL:(NSURL *)url
+                   success:(void(^)(BDBOAuthToken *accessToken))success
+                   failure:(void(^)(NSError *error))failure
+{
+    NSDictionary *parameters = [url dictionaryFromQueryString];
+    
+    if (parameters[@"oauth_token"] && parameters[@"oauth_verifier"]) {
+    
+        [self fetchAccessTokenWithPath:@"/oauth/access_token"
+                                  method:@"POST"
+                            requestToken:[BDBOAuthToken tokenWithQueryString:url.query]
+                                 success:^(BDBOAuthToken *accessToken) {
+                                     NSLog(@"access_token: %@", accessToken.token);
+                                     success(accessToken);
+                                 }
+                                 failure:^(NSError *error) {
+                                     NSLog(@"access_token: %@", error);
+                                     failure(error);
+                                 }];
+    }
+}
+
+- (void)connectWithSuccess:(void(^)())success
+                   failure:(void(^)(NSError *error))failure;
+{
+    [self.requestSerializer removeAccessToken];
+    
+    [self requestTokenWithSuccess:^(BDBOAuthToken *requestToken)
+    {
+        // store the request token for OAuth1.0a
+        if (requestToken != nil) {
+            NSLog(@"Got the request token.");
+            NSLog(@"request_token: %@", requestToken.token);
+            NSLog(@"request_token_secret: %@", requestToken.secret);
+        }
+
+        // launch the authorization URL in the browser
+        //NSString *authorizeUrl = [NSString stringWithFormat:@"https://api.twitter.com/oauth/authorize?oauth_token=%@", requestToken.token];
+        NSString *authorizeUrl = [NSString stringWithFormat:@"https://api.twitter.com/oauth/authenticate?oauth_token=%@", requestToken.token];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:authorizeUrl]];
+    }
+                          failure:^(NSError *error)
+    {
+        NSLog(@"Fail to get the request token.");
+    }];
+}
+
+- (void)authorizeWithURL:(NSURL *)url
+                 success:(void(^)())success
+                 failure:(void(^)(NSError *error))failure
+{
+    [self accessTokenWithURL:url
+                     success:^(BDBOAuthToken *accessToken)
+    {
+        // store the access token in client
+        if (accessToken != nil) {
+            NSLog(@"Got the access token.");
+            NSLog(@"access_token: %@", accessToken.token);
+            NSLog(@"access_token_secret: %@", accessToken.secret);
+            
+            [self.requestSerializer saveAccessToken:accessToken];
+        }
+        success();
+    }
+                     failure:^(NSError *error)
+    {
+        NSLog(@"Fail to get the access token.");
+        failure(error);
+    }];
+}
+
+// Removes the access tokens (for signing out)
+- (void)removeAccessToken
+{
+    NSLog(@"client: remove access token");
+    [self.requestSerializer removeAccessToken];
+}
+
+- (BOOL)isAuthenticated
+{
+    return [self isAuthorized];
 }
 
 @end

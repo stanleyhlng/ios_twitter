@@ -7,8 +7,9 @@
 //
 
 #import "AppDelegate.h"
-#import "AVHexColor.h"
 #import "LoginViewController.h"
+#import "TimelineViewController.h"
+#import "AVHexColor.h"
 #import "NSURL+DictionaryFromQueryString.h"
 #import "TwitterClient.h"
 
@@ -16,6 +17,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    NSLog(@"[DEBUG 1]");
     [self customizeStatusBar];
     [self customizeNavBarAppearance];
     [self customizeWindow];
@@ -86,10 +88,35 @@
     NSLog(@"url.scheme: %@", url.scheme);
     NSLog(@"url.host: %@", url.host);
     
-    if ([url.scheme isEqualToString:@"stanleyhlngiostwitterapp"])
+    NSLog(@"[DEBUG 2]");
+    
+    if ([url.scheme isEqualToString:@"oauth"])
     {
-        if ([url.host isEqualToString:@"request"])
+        if ([url.host isEqualToString:@"ios_twitter"])
         {
+            [[TwitterClient instance] authorizeWithURL:url
+                                               success:^{
+
+                                                   NSLog(@"App Delegate: authorize ok!");
+
+                                                   // OAuth authenticated successfully, launch primary authenticated view
+                                                   // i.e Display application "timeline"
+                                                   
+                                                   LoginViewController *vc = [[LoginViewController alloc] init];
+                                                   
+                                                   UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
+                                                   nvc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+                                                   
+                                                   self.window.rootViewController = nvc;
+                                                   
+                                                   //[self.window.view presentViewController:nvc animated:YES completion:nil];
+                                                   
+                                               }
+                                               failure:^(NSError *error) {
+                                                   NSLog(@"App Delegate: authorize fail!");
+                                               }];
+
+            /*
             NSDictionary *parameters = [url dictionaryFromQueryString];
             if (parameters[@"oauth_token"] && parameters[@"oauth_verifier"]) {
                 TwitterClient *client = [TwitterClient instance];
@@ -103,6 +130,7 @@
                                              NSLog(@"Fail to get the access token.");
                                          }];
             }
+            */
         }
         return YES;
     }
