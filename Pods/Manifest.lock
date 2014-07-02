@@ -23,6 +23,9 @@ PODS:
     - AFNetworking/NSURLConnection (~> 2.2.0)
     - AFNetworking/NSURLSession (~> 2.2.0)
   - GSProgressHUD (0.2)
+  - Mantle (1.5):
+    - Mantle/extobjc
+  - Mantle/extobjc (1.5)
   - Reveal-iOS-SDK (1.0.4)
   - SDWebImage (3.6):
     - SDWebImage/Core
@@ -35,6 +38,7 @@ DEPENDENCIES:
   - AVHexColor (~> 1.2.0)
   - BDBOAuth1Manager (~> 1.2.1)
   - GSProgressHUD (~> 0.2)
+  - Mantle (~> 1.5)
   - Reveal-iOS-SDK (~> 1.0.4)
   - SDWebImage (~> 3.6)
   - UIActivityIndicator-for-SDWebImage (~> 1.0.5)
@@ -44,6 +48,7 @@ SPEC CHECKSUMS:
   AVHexColor: b47099552819a98dc58d7931f0f43eb6e2308342
   BDBOAuth1Manager: 55c7390b5018cac757e322ad8f9ab782b0f9fd01
   GSProgressHUD: 61321923fbada3ab29803c2f4fb5a0ad452923de
+  Mantle: c67a7e45e14196ed42b2a7cbb98ff6a9920e6b92
   Reveal-iOS-SDK: d3c8e109d42219daaa7a6e1ad2de34f0bdbb7a88
   SDWebImage: c6989652c1cdf27cbdf3f56957e2030f825af5bc
   UIActivityIndicator-for-SDWebImage: d9e46f1592d04cfbeda67bb6d7bba5348558697b
