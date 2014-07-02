@@ -149,7 +149,7 @@
     [[TwitterClient instance] homeTimelineWithParams:params
                                              success:^(AFHTTPRequestOperation *operation, NSArray *tweets) {
                                                  NSLog(@"success: %@", tweets);
-                                                 NSLog(@"[DEBUG] %@", [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:[MTLJSONAdapter JSONDictionaryFromModel:tweets[0]] options:0 error:NULL] encoding:NSUTF8StringEncoding]);
+                                                 //NSLog(@"[DEBUG] %@", [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:[MTLJSONAdapter JSONDictionaryFromModel:tweets[0]] options:0 error:NULL] encoding:NSUTF8StringEncoding]);
                                              }
                                              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                  NSLog(@"failure: %@", error);
