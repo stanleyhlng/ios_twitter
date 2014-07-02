@@ -12,6 +12,7 @@
 #import "AVHexColor.h"
 #import "UIScrollView+InfiniteScroll.h"
 #import "TwitterClient.h"
+#import "Tweet.h"
 
 @interface TimelineViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tweetsTableView;
@@ -25,6 +26,7 @@
 - (void)handleRefresh;
 - (void)handleSignOut;
 - (void)handleTweet;
+- (void)loadCredentialsData;
 - (void)loadTimelineData;
 - (void)setupTableView;
 @end
@@ -41,6 +43,7 @@
         [self customizeTitleView];
         
         [self loadTimelineData];
+        //[self loadCredentialsData];
     }
     return self;
 }
@@ -124,18 +127,27 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+- (void)loadCredentialsData
+{
+    NSLog(@"load credentials data");
+
+    [[TwitterClient instance] verifyCredentialsWithParams:nil
+                                                  success:^(AFHTTPRequestOperation *operation, id response) {
+                                                      NSLog(@"success: %@", response);
+                                                  }
+                                                  failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                      NSLog(@"failure: %@", error);
+                                                }];
+}
+
 - (void)loadTimelineData
 {
     NSLog(@"load timeline data");
     
     NSDictionary *params = @{@"count": [[NSNumber alloc] initWithInt:2]};
     [[TwitterClient instance] homeTimelineWithParams:params
-                                             success:^(AFHTTPRequestOperation *operation, id response) {
-                                                 NSLog(@"success: %@", response);
-                                                 
-                                                 NSArray *tweets = response;
-                                                 NSLog(@"count: %d", tweets.count);
-                                                 
+                                             success:^(AFHTTPRequestOperation *operation, NSArray *tweets) {
+                                                 NSLog(@"success: %@", tweets);
                                              }
                                              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                  NSLog(@"failure: %@", error);

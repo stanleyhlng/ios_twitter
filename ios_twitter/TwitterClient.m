@@ -8,6 +8,7 @@
 
 #import "TwitterClient.h"
 #import "NSURL+DictionaryFromQueryString.h"
+#import "Tweet.h"
 
 @implementation TwitterClient
 
@@ -29,16 +30,31 @@
 // GET statuses/home_timeline
 // https://dev.twitter.com/docs/api/1.1/get/statuses/home_timeline
 - (AFHTTPRequestOperation *)homeTimelineWithParams:(NSDictionary *)params
-                                           success:(void(^)(AFHTTPRequestOperation *operation, id response))success
+                                           success:(void(^)(AFHTTPRequestOperation *operation, NSArray *tweets))success
                                            failure:(void(^)(AFHTTPRequestOperation *operation, NSError *error))failure
 {
     return [self GET:@"1.1/statuses/home_timeline.json"
           parameters:params
              success:^(AFHTTPRequestOperation *operation, id response) {
-                 success(operation, response);
+                 NSLog(@"success: %@", response);
+                 success(operation, [Tweet fromJson:response]);
              }
              failure:failure];
 };
+
+// GET account/verify_credentials
+// https://dev.twitter.com/docs/api/1.1/get/account/verify_credentials
+- (AFHTTPRequestOperation *)verifyCredentialsWithParams:(NSDictionary *)params
+                                                success:(void(^)(AFHTTPRequestOperation *operation, id response))success
+                                                failure:(void(^)(AFHTTPRequestOperation *operation, NSError *error))failure
+{
+    return [self GET:@"1.1/account/verify_credentials.json"
+          parameters:params
+             success:^(AFHTTPRequestOperation *operation, id response) {
+                 success(operation, response);
+             }
+             failure:failure];
+}
 
 // POST oauth/request_token
 // https://dev.twitter.com/docs/api/1/post/oauth/request_token

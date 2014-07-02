@@ -15,8 +15,14 @@
 // GET statuses/home_timeline
 // https://dev.twitter.com/docs/api/1.1/get/statuses/home_timeline
 - (AFHTTPRequestOperation *)homeTimelineWithParams:(NSDictionary *)params
-                                           success:(void(^)(AFHTTPRequestOperation *operation, id response))success
+                                           success:(void(^)(AFHTTPRequestOperation *operation, NSArray *tweets))success
                                             failure:(void(^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+// GET account/verify_credentials
+// https://dev.twitter.com/docs/api/1.1/get/account/verify_credentials
+- (AFHTTPRequestOperation *)verifyCredentialsWithParams:(NSDictionary *)params
+                                           success:(void(^)(AFHTTPRequestOperation *operation, id response))success
+                                           failure:(void(^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 // POST oauth/request_token
 // https://dev.twitter.com/docs/api/1/post/oauth/request_token
