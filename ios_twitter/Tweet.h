@@ -20,7 +20,9 @@
 @property (nonatomic, strong) NSNumber *retweetCount;
 @property (nonatomic, strong) NSNumber *retweeted;
 @property (nonatomic, strong) NSString *text;
+@property (nonatomic, strong) NSString *user;
 
++ (NSValueTransformer *)userJSONTransformer;
 + (NSArray *)fromJson:(id)response;
 
 @end

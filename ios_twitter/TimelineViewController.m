@@ -13,6 +13,7 @@
 #import "UIScrollView+InfiniteScroll.h"
 #import "TwitterClient.h"
 #import "Tweet.h"
+#import "User.h"
 
 @interface TimelineViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tweetsTableView;
@@ -132,8 +133,8 @@
     NSLog(@"load credentials data");
 
     [[TwitterClient instance] verifyCredentialsWithParams:nil
-                                                  success:^(AFHTTPRequestOperation *operation, id response) {
-                                                      NSLog(@"success: %@", response);
+                                                  success:^(AFHTTPRequestOperation *operation, User *user) {
+                                                      NSLog(@"success: %@", user);
                                                   }
                                                   failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                       NSLog(@"failure: %@", error);
@@ -148,6 +149,7 @@
     [[TwitterClient instance] homeTimelineWithParams:params
                                              success:^(AFHTTPRequestOperation *operation, NSArray *tweets) {
                                                  NSLog(@"success: %@", tweets);
+                                                 NSLog(@"[DEBUG] %@", [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:[MTLJSONAdapter JSONDictionaryFromModel:tweets[0]] options:0 error:NULL] encoding:NSUTF8StringEncoding]);
                                              }
                                              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                  NSLog(@"failure: %@", error);

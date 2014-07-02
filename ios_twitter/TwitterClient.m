@@ -9,6 +9,7 @@
 #import "TwitterClient.h"
 #import "NSURL+DictionaryFromQueryString.h"
 #import "Tweet.h"
+#import "User.h"
 
 @implementation TwitterClient
 
@@ -45,13 +46,14 @@
 // GET account/verify_credentials
 // https://dev.twitter.com/docs/api/1.1/get/account/verify_credentials
 - (AFHTTPRequestOperation *)verifyCredentialsWithParams:(NSDictionary *)params
-                                                success:(void(^)(AFHTTPRequestOperation *operation, id response))success
+                                                success:(void(^)(AFHTTPRequestOperation *operation, User *user))success
                                                 failure:(void(^)(AFHTTPRequestOperation *operation, NSError *error))failure
 {
     return [self GET:@"1.1/account/verify_credentials.json"
           parameters:params
              success:^(AFHTTPRequestOperation *operation, id response) {
-                 success(operation, response);
+                 NSLog(@"success: %@", response);
+                 success(operation, [User fromJson:response]);
              }
              failure:failure];
 }

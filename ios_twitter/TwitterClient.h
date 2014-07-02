@@ -8,6 +8,8 @@
 
 #import "BDBOAuth1RequestOperationManager.h"
 
+@class User;
+
 @interface TwitterClient : BDBOAuth1RequestOperationManager
 
 + (TwitterClient *)instance;
@@ -21,7 +23,7 @@
 // GET account/verify_credentials
 // https://dev.twitter.com/docs/api/1.1/get/account/verify_credentials
 - (AFHTTPRequestOperation *)verifyCredentialsWithParams:(NSDictionary *)params
-                                           success:(void(^)(AFHTTPRequestOperation *operation, id response))success
+                                           success:(void(^)(AFHTTPRequestOperation *operation, User *user))success
                                            failure:(void(^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 // POST oauth/request_token
