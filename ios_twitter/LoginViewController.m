@@ -72,19 +72,17 @@
     {
         NSLog(@"Login view controller: connect fail!");
     }];
-    
-    //TimelineViewController *vc = [[TimelineViewController alloc] init];
-    //[self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)loadTimeLineView
 {
     NSLog(@"Load timeline view");
     TimelineViewController *vc = [[TimelineViewController alloc] init];
+    
     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
+    nvc.modalPresentationStyle = UIModalTransitionStyleCrossDissolve;
     
     [self presentViewController:nvc animated:YES completion:nil];
-    //[self.navigationController pushViewController:vc animated:YES];
 }
 
 @end

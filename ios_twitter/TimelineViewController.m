@@ -111,7 +111,6 @@
     [[TwitterClient instance] removeAccessToken];
     
     [self dismissViewControllerAnimated:YES completion:nil];
-    //[self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)handleTweet
