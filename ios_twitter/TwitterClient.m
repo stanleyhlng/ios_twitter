@@ -98,7 +98,7 @@
 
         // launch the authorization URL in the browser
         //NSString *authorizeUrl = [NSString stringWithFormat:@"https://api.twitter.com/oauth/authorize?oauth_token=%@", requestToken.token];
-        NSString *authorizeUrl = [NSString stringWithFormat:@"https://api.twitter.com/oauth/authenticate?oauth_token=%@&force_login=true", requestToken.token];
+        NSString *authorizeUrl = [NSString stringWithFormat:@"https://api.twitter.com/oauth/authenticate?oauth_token=%@", requestToken.token];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:authorizeUrl]];
     }
                           failure:^(NSError *error)
