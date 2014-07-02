@@ -14,7 +14,8 @@
 
 // GET statuses/home_timeline
 // https://dev.twitter.com/docs/api/1.1/get/statuses/home_timeline
-- (AFHTTPRequestOperation *)homeTimelineWithSuccess:(void(^)(AFHTTPRequestOperation *operation, id response))success
+- (AFHTTPRequestOperation *)homeTimelineWithParams:(NSDictionary *)params
+                                           success:(void(^)(AFHTTPRequestOperation *operation, id response))success
                                             failure:(void(^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 // POST oauth/request_token

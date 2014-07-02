@@ -82,7 +82,7 @@
     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
     nvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     
-    [self presentViewController:nvc animated:YES completion:nil];
+    [self presentViewController:nvc animated:NO completion:nil];
 }
 
 @end

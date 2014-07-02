@@ -25,6 +25,7 @@
 - (void)handleRefresh;
 - (void)handleSignOut;
 - (void)handleTweet;
+- (void)loadTimelineData;
 - (void)setupTableView;
 @end
 
@@ -38,6 +39,8 @@
         [self customizeLeftBarButton];
         [self customizeRightBarButton];
         [self customizeTitleView];
+        
+        [self loadTimelineData];
     }
     return self;
 }
@@ -119,6 +122,24 @@
     
     TweetViewController *vc = [[TweetViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)loadTimelineData
+{
+    NSLog(@"load timeline data");
+    
+    NSDictionary *params = @{@"count": [[NSNumber alloc] initWithInt:2]};
+    [[TwitterClient instance] homeTimelineWithParams:params
+                                             success:^(AFHTTPRequestOperation *operation, id response) {
+                                                 NSLog(@"success: %@", response);
+                                                 
+                                                 NSArray *tweets = response;
+                                                 NSLog(@"count: %d", tweets.count);
+                                                 
+                                             }
+                                             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                 NSLog(@"failure: %@", error);
+                                             }];
 }
 
 - (void)setupTableView
