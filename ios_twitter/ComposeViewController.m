@@ -11,7 +11,9 @@
 #import "AVHexColor.h"
 
 @interface ComposeViewController ()
-@property (weak, nonatomic) IBOutlet UIScrollView *contentScrollView;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UITextView *textView;
+
 - (void)customizeLeftBarButton;
 - (void)customizeRightBarButton;
 - (void)customizeTitleView;
@@ -38,10 +40,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    [self.contentScrollView sizeToFit];
-    
     User *user = [[Session instance] getUser];
     NSLog(@"user: %@", user);
+
+    [self.textView becomeFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning
