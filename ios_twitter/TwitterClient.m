@@ -30,12 +30,18 @@
 
 // GET statuses/home_timeline
 // https://dev.twitter.com/docs/api/1.1/get/statuses/home_timeline
-- (AFHTTPRequestOperation *)homeTimelineWithParams:(NSDictionary *)params
+- (AFHTTPRequestOperation *)homeTimelineWithParams:(NSMutableDictionary *)params
                                            success:(void(^)(AFHTTPRequestOperation *operation, NSArray *tweets))success
                                            failure:(void(^)(AFHTTPRequestOperation *operation, NSError *error))failure
 {
     if (params == nil) {
-        params = @{@"count": [[NSNumber alloc] initWithInt:3]};
+        params =
+        [@{
+          @"count": [[NSNumber alloc] initWithInt:2]
+        } mutableCopy];
+    }
+    else if (params[@"count"] == nil){
+        params[@"count"] = [[NSNumber alloc] initWithInt:2];
     }
     
     return [self GET:@"1.1/statuses/home_timeline.json"

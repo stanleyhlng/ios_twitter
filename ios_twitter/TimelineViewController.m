@@ -18,6 +18,7 @@
 @interface TimelineViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tweetsTableView;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
+@property (strong, nonatomic) NSMutableArray *tweets;
 
 - (void)customizeLeftBarButton;
 - (void)customizeRightBarButton;
@@ -28,7 +29,9 @@
 - (void)handleSignOut;
 - (void)handleTweet;
 - (void)loadCredentialsData;
-- (void)loadTimelineDataWithParams:(NSDictionary *)params;
+- (void)loadTimelineDataWithParams:(NSMutableDictionary *)params
+                           success:(void(^)(NSArray *tweets))success
+                           failure:(void(^)(NSError *error))failure;
 - (void)setupTableView;
 @end
 
@@ -43,7 +46,10 @@
         [self customizeRightBarButton];
         [self customizeTitleView];
         
-        [self loadTimelineDataWithParams:nil];
+        [self loadTimelineDataWithParams:nil success:^(NSArray *tweets) {
+            self.tweets = [tweets mutableCopy];
+            NSLog(@"[INIT] tweets.count: %d / %d", tweets.count, self.tweets.count);
+        } failure:nil];
         
         //[self loadCredentialsData];
     }
@@ -101,6 +107,19 @@
 - (void)handleLoadMore
 {
     NSLog(@"handle load more");
+    
+    Tweet *tweet = [self.tweets lastObject];
+    NSLog(@"last tweet: %@", tweet);
+    
+    NSMutableDictionary *params =
+    [@{
+      @"max_id": tweet.id
+    } mutableCopy];
+    
+    [self loadTimelineDataWithParams:params success:^(NSArray *tweets) {
+        [self.tweets addObjectsFromArray:tweets];
+        NSLog(@"[RELOAD] tweets.count: %d / %d", tweets.count, self.tweets.count);
+    } failure:nil];
 }
 
 - (void)handleRefresh
@@ -109,7 +128,10 @@
     
     [self.refreshControl endRefreshing];
 
-    [self loadTimelineDataWithParams:nil];
+    [self loadTimelineDataWithParams:nil success:^(NSArray *tweets) {
+        self.tweets = [tweets mutableCopy];
+        NSLog(@"[REFERSH] tweets.count: %d / %d", tweets.count, self.tweets.count);
+    } failure:nil];
 
     [self.tweetsTableView reloadData];
 }
@@ -144,17 +166,22 @@
                                                 }];
 }
 
-- (void)loadTimelineDataWithParams:(NSDictionary *)params
+- (void)loadTimelineDataWithParams:(NSMutableDictionary *)params
+                           success:(void(^)(NSArray *tweets))success
+                           failure:(void(^)(NSError *error))failure;
 {
     NSLog(@"load timeline data");
     
     [[TwitterClient instance] homeTimelineWithParams:params
                                              success:^(AFHTTPRequestOperation *operation, NSArray *tweets) {
                                                  NSLog(@"success: %@", tweets);
-                                                 NSLog(@"tweets.count: %d", tweets.count);
+                                                 success(tweets);
                                              }
                                              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                  NSLog(@"failure: %@", error);
+                                                 if (failure != nil) {
+                                                     failure(error);
+                                                 }
                                              }];
 }
 
