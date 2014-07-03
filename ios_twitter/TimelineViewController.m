@@ -28,7 +28,7 @@
 - (void)handleSignOut;
 - (void)handleTweet;
 - (void)loadCredentialsData;
-- (void)loadTimelineData;
+- (void)loadTimelineDataWithParams:(NSDictionary *)params;
 - (void)setupTableView;
 @end
 
@@ -43,7 +43,8 @@
         [self customizeRightBarButton];
         [self customizeTitleView];
         
-        [self loadTimelineData];
+        [self loadTimelineDataWithParams:nil];
+        
         //[self loadCredentialsData];
     }
     return self;
@@ -107,7 +108,9 @@
     NSLog(@"handle refresh");
     
     [self.refreshControl endRefreshing];
-    
+
+    [self loadTimelineDataWithParams:nil];
+
     [self.tweetsTableView reloadData];
 }
 
@@ -141,15 +144,14 @@
                                                 }];
 }
 
-- (void)loadTimelineData
+- (void)loadTimelineDataWithParams:(NSDictionary *)params
 {
     NSLog(@"load timeline data");
     
-    NSDictionary *params = @{@"count": [[NSNumber alloc] initWithInt:2]};
     [[TwitterClient instance] homeTimelineWithParams:params
                                              success:^(AFHTTPRequestOperation *operation, NSArray *tweets) {
                                                  NSLog(@"success: %@", tweets);
-                                                 //NSLog(@"[DEBUG] %@", [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:[MTLJSONAdapter JSONDictionaryFromModel:tweets[0]] options:0 error:NULL] encoding:NSUTF8StringEncoding]);
+                                                 NSLog(@"tweets.count: %d", tweets.count);
                                              }
                                              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                  NSLog(@"failure: %@", error);

@@ -20,9 +20,19 @@
              @"id": @"id",
              @"retweetCount": @"retweet_count",
              @"retweeted": @"retweeted",
+             @"retweetedStatus": @"retweeted_status",
              @"text": @"text",
              @"user": @"user"
              };
+}
+
++ (NSValueTransformer *)retweetedStatusJSONTransformer;
+{
+    return [MTLValueTransformer reversibleTransformerWithForwardBlock:^id(NSDictionary *data) {
+        return [MTLJSONAdapter modelOfClass:Tweet.class fromJSONDictionary:data error:nil];
+    } reverseBlock:^id(Tweet *tweet) {
+        return [MTLJSONAdapter JSONDictionaryFromModel:tweet];
+    }];
 }
 
 + (NSValueTransformer *)userJSONTransformer

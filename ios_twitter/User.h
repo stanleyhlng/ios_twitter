@@ -23,6 +23,8 @@
 @property (nonatomic, strong) NSNumber *statusesCount;
 @property (nonatomic, strong) NSString *tagLine;
 
++ (NSValueTransformer *)profileBackgroundImageUrlJSONTransformer;
++ (NSValueTransformer *)profileImageUrlJSONTransformer;
 + (User *)fromJson:(id)response;
 
 @end

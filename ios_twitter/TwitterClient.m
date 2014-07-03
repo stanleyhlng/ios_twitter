@@ -34,6 +34,10 @@
                                            success:(void(^)(AFHTTPRequestOperation *operation, NSArray *tweets))success
                                            failure:(void(^)(AFHTTPRequestOperation *operation, NSError *error))failure
 {
+    if (params == nil) {
+        params = @{@"count": [[NSNumber alloc] initWithInt:3]};
+    }
+    
     return [self GET:@"1.1/statuses/home_timeline.json"
           parameters:params
              success:^(AFHTTPRequestOperation *operation, id response) {

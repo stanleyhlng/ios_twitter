@@ -25,6 +25,16 @@
              };
 }
 
++ (NSValueTransformer *)profileBackgroundImageUrlJSONTransformer
+{
+    return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
+}
+
++ (NSValueTransformer *)profileImageUrlJSONTransformer
+{
+    return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
+}
+
 + (User *)fromJson:(id)response
 {
     return [MTLJSONAdapter modelOfClass:User.class fromJSONDictionary:response error:nil];

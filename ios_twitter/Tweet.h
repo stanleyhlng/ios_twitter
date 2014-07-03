@@ -8,6 +8,9 @@
 
 #import <Mantle.h>
 
+@class Tweet;
+@class User;
+
 @interface Tweet : MTLModel<MTLJSONSerializing>
 
 // Tweet Object Documentation
@@ -19,9 +22,11 @@
 @property (nonatomic, strong) NSNumber *id;
 @property (nonatomic, strong) NSNumber *retweetCount;
 @property (nonatomic, strong) NSNumber *retweeted;
+@property (nonatomic, strong) Tweet *retweetedStatus;
 @property (nonatomic, strong) NSString *text;
-@property (nonatomic, strong) NSString *user;
+@property (nonatomic, strong) User *user;
 
++ (NSValueTransformer *)retweetedStatusJSONTransformer;
 + (NSValueTransformer *)userJSONTransformer;
 + (NSArray *)fromJson:(id)response;
 
