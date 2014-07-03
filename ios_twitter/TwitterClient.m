@@ -28,6 +28,7 @@
     return instance;
 }
 
+
 #pragma TIMELINES methods
 
 // GET statuses/home_timeline
@@ -73,6 +74,45 @@
              failure:failure];
 }
 
+
+#pragma TWEETS methods
+
+
+#pragma FAVORITES methods
+
+// POST favorites/create
+// https://dev.twitter.com/docs/api/1.1/post/favorites/create
+- (AFHTTPRequestOperation *)createFavoriteWithParams:(NSDictionary *)params
+                                             success:(void(^)(AFHTTPRequestOperation *operation, Tweet *tweet))success
+                                             failure:(void(^)(AFHTTPRequestOperation *operation, NSError *error))failure
+{
+    NSLog(@"client: params: %@", params);
+    return [self POST:@"1.1/favorites/create.json"
+           parameters:params
+              success:^(AFHTTPRequestOperation *operation, id response) {
+                  NSLog(@"success: %@", response);
+                  success(operation, [Tweet parseTweet:response]);
+              }
+              failure:failure];
+}
+
+// POST favorites/destroy
+// https://dev.twitter.com/docs/api/1.1/post/favorites/destroy
+- (AFHTTPRequestOperation *)destroyFavoriteWithParams:(NSDictionary *)params
+                                              success:(void(^)(AFHTTPRequestOperation *operation, Tweet *tweet))success
+                                              failure:(void(^)(AFHTTPRequestOperation *operation, NSError *error))failure
+{
+    NSLog(@"client: params: %@", params);
+    return [self POST:@"1.1/favorites/destroy.json"
+           parameters:params
+              success:^(AFHTTPRequestOperation *operation, id response) {
+                  NSLog(@"success: %@", response);
+                  success(operation, [Tweet parseTweet:response]);
+              }
+              failure:failure];
+}
+
+
 #pragma USERS methods
 
 // GET account/verify_credentials
@@ -89,6 +129,7 @@
              }
              failure:failure];
 }
+
 
 #pragma OAUTH methods
 
@@ -134,6 +175,7 @@
                                  }];
     }
 }
+
 
 #pragma HELPERS methods
 

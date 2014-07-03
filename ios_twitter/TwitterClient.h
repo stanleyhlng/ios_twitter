@@ -30,6 +30,25 @@
                                            success:(void(^)(AFHTTPRequestOperation *operation, Tweet *tweet))success
                                            failure:(void(^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
+// ==================================================
+// TWEETS
+
+
+// ==================================================
+// FAVORITES
+
+// POST favorites/create
+// https://dev.twitter.com/docs/api/1.1/post/favorites/create
+- (AFHTTPRequestOperation *)createFavoriteWithParams:(NSDictionary *)params
+                                     success:(void(^)(AFHTTPRequestOperation *operation, Tweet *tweet))success
+                                     failure:(void(^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+// POST favorites/destroy
+// https://dev.twitter.com/docs/api/1.1/post/favorites/destroy
+- (AFHTTPRequestOperation *)destroyFavoriteWithParams:(NSDictionary *)params
+                                             success:(void(^)(AFHTTPRequestOperation *operation, Tweet *tweet))success
+                                             failure:(void(^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
 
 // ==================================================
 // USERS
