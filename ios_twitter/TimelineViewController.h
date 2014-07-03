@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ComposeViewController.h"
 
-@interface TimelineViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
+@interface TimelineViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, ComposeViewControllerDelegate>
 
 @end

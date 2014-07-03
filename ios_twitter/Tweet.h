@@ -28,6 +28,7 @@
 
 + (NSValueTransformer *)retweetedStatusJSONTransformer;
 + (NSValueTransformer *)userJSONTransformer;
-+ (NSArray *)fromJson:(id)response;
++ (Tweet *)parseTweet:(id)response;
++ (NSArray *)parseTweets:(id)response;
 
 @end

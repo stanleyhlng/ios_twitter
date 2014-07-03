@@ -28,9 +28,9 @@
 - (void)handleRefresh;
 - (void)handleSignOut;
 - (void)handleTweet;
-- (void)loadTimelineWithParams:(NSMutableDictionary *)params
-                           success:(void(^)(NSArray *tweets))success
-                           failure:(void(^)(NSError *error))failure;
+- (void)getTimelineWithParams:(NSMutableDictionary *)params
+                      success:(void(^)(NSArray *tweets))success
+                      failure:(void(^)(NSError *error))failure;
 - (void)setupTableView;
 @end
 
@@ -44,9 +44,10 @@
         [self customizeLeftBarButton];
         [self customizeRightBarButton];
         [self customizeTitleView];
-        
+
+        self.tweets = [[NSMutableArray alloc] initWithCapacity:0];
         /*
-        [self loadTimelineWithParams:nil success:^(NSArray *tweets) {
+        [self getTimelineWithParams:nil success:^(NSArray *tweets) {
             
             self.tweets = [tweets mutableCopy];
             NSLog(@"[INIT] tweets.count: %d / %d", tweets.count, self.tweets.count);
@@ -104,6 +105,7 @@
     NSLog(@"handle compose");
     
     ComposeViewController *vc = [[ComposeViewController alloc] init];
+    vc.delegate = self;
     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
     
     [self presentViewController:nvc animated:YES completion:nil];
@@ -121,7 +123,7 @@
       @"max_id": tweet.id
     } mutableCopy];
     
-    [self loadTimelineWithParams:params success:^(NSArray *tweets) {
+    [self getTimelineWithParams:params success:^(NSArray *tweets) {
         [self.tweets addObjectsFromArray:tweets];
         NSLog(@"[RELOAD] tweets.count: %d / %d", tweets.count, self.tweets.count);
     } failure:nil];
@@ -133,7 +135,7 @@
     
     [self.refreshControl endRefreshing];
 
-    [self loadTimelineWithParams:nil success:^(NSArray *tweets) {
+    [self getTimelineWithParams:nil success:^(NSArray *tweets) {
         self.tweets = [tweets mutableCopy];
         NSLog(@"[REFERSH] tweets.count: %d / %d", tweets.count, self.tweets.count);
     } failure:nil];
@@ -158,11 +160,11 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)loadTimelineWithParams:(NSMutableDictionary *)params
-                       success:(void(^)(NSArray *tweets))success
-                       failure:(void(^)(NSError *error))failure;
+- (void)getTimelineWithParams:(NSMutableDictionary *)params
+                      success:(void(^)(NSArray *tweets))success
+                      failure:(void(^)(NSError *error))failure;
 {
-    NSLog(@"load timeline data");
+    NSLog(@"get timeline with params: %@", params);
     
     [[TwitterClient instance] homeTimelineWithParams:params
                                              success:^(AFHTTPRequestOperation *operation, NSArray *tweets) {
@@ -217,6 +219,16 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self handleTweet];
+}
+
+#pragma ComposeViewControllerDelegate methods
+
+- (void)updateFromComposeView:(ComposeViewController *)controller update:(Tweet *)tweet
+{
+    NSLog(@"update from compose view: %@", tweet);
+    
+    [self.tweets insertObject:tweet atIndex:0];
+    NSLog(@"[UPDATE] tweets.count: 1 / %d", self.tweets.count);
 }
 
 @end

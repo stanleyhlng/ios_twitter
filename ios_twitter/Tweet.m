@@ -44,12 +44,17 @@
     }];
 }
 
-+ (NSArray *)fromJson:(id)response
++ (Tweet *)parseTweet:(id)response
+{
+    return [MTLJSONAdapter modelOfClass:Tweet.class fromJSONDictionary:response error:nil];
+}
+
++ (NSArray *)parseTweets:(id)response
 {
     NSMutableArray *tweets = [[NSMutableArray alloc] init];
 
     for (NSDictionary *item in response) {
-        Tweet *tweet = [MTLJSONAdapter modelOfClass:Tweet.class fromJSONDictionary:item error:nil];
+        Tweet *tweet = [Tweet parseTweet:item];
         [tweets addObject:tweet];
     }
     

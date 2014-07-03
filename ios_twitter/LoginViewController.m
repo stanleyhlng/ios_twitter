@@ -16,9 +16,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *signInButton;
 
 - (void)handleSignIn;
-- (void)loadCredentialsWithParams:(NSMutableDictionary *)params
-                          success:(void(^)(User *user))success
-                          failure:(void(^)(NSError *error))failure;
+- (void)getCredentialsWithParams:(NSMutableDictionary *)params
+                         success:(void(^)(User *user))success
+                         failure:(void(^)(NSError *error))failure;
 - (void)presentTimeline;
 @end
 
@@ -45,7 +45,7 @@
     if ([[TwitterClient instance] isAuthorized] == 1) {
 
         // set user in session
-        [self loadCredentialsWithParams:nil success:^(User *user) {
+        [self getCredentialsWithParams:nil success:^(User *user) {
             
             [[Session instance] setUser:user];
             
@@ -87,11 +87,11 @@
     }];
 }
 
-- (void)loadCredentialsWithParams:(NSMutableDictionary *)params
-                       success:(void(^)(User *user))success
-                       failure:(void(^)(NSError *error))failure;
+- (void)getCredentialsWithParams:(NSMutableDictionary *)params
+                         success:(void(^)(User *user))success
+                         failure:(void(^)(NSError *error))failure;
 {
-    NSLog(@"load credentials data");
+    NSLog(@"get credentials with params: %@", params);
     
     [[TwitterClient instance] verifyCredentialsWithParams:nil
                                                   success:^(AFHTTPRequestOperation *operation, User *user) {

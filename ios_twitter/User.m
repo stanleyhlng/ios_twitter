@@ -35,7 +35,7 @@
     return [NSValueTransformer valueTransformerForName:MTLURLValueTransformerName];
 }
 
-+ (User *)fromJson:(id)response
++ (User *)parseUser:(id)response
 {
     return [MTLJSONAdapter modelOfClass:User.class fromJSONDictionary:response error:nil];
 }

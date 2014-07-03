@@ -48,10 +48,25 @@
           parameters:params
              success:^(AFHTTPRequestOperation *operation, id response) {
                  NSLog(@"success: %@", response);
-                 success(operation, [Tweet fromJson:response]);
+                 success(operation, [Tweet parseTweets:response]);
              }
              failure:failure];
 };
+
+// POST statuses/update
+// https://dev.twitter.com/docs/api/1.1/post/statuses/update
+- (AFHTTPRequestOperation *)updateWithParams:(NSDictionary *)params
+                                     success:(void(^)(AFHTTPRequestOperation *operation, Tweet *tweet))success
+                                     failure:(void(^)(AFHTTPRequestOperation *operation, NSError *error))failure
+{
+    return [self POST:@"1.1/statuses/update.json"
+          parameters:params
+             success:^(AFHTTPRequestOperation *operation, id response) {
+                 NSLog(@"success: %@", response);
+                 success(operation, [Tweet parseTweet:response]);
+             }
+             failure:failure];
+}
 
 // GET account/verify_credentials
 // https://dev.twitter.com/docs/api/1.1/get/account/verify_credentials
@@ -63,7 +78,7 @@
           parameters:params
              success:^(AFHTTPRequestOperation *operation, id response) {
                  NSLog(@"success: %@", response);
-                 success(operation, [User fromJson:response]);
+                 success(operation, [User parseUser:response]);
              }
              failure:failure];
 }

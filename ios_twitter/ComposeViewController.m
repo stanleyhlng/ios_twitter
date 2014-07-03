@@ -9,6 +9,7 @@
 #import "ComposeViewController.h"
 #import "Session.h"
 #import "AVHexColor.h"
+#import "TwitterClient.h"
 
 @interface ComposeViewController ()
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -19,6 +20,9 @@
 - (void)customizeTitleView;
 - (void)handleCancel;
 - (void)handleTweet;
+- (void)postUpdateWithParams:(NSMutableDictionary *)params
+                     success:(void(^)(Tweet *tweet))success
+                     failure:(void(^)(NSError *error))failure;
 @end
 
 @implementation ComposeViewController
@@ -87,6 +91,36 @@
 - (void)handleTweet
 {
     NSLog(@"handle tweet");
+
+    NSMutableDictionary *params =
+    [@{
+       @"status": @"Hello World 1"
+       } mutableCopy];
+    
+    [self postUpdateWithParams:params success:^(Tweet *tweet) {
+        NSLog(@"[UPDATE] tweet: %@", tweet);
+        [self.delegate updateFromComposeView:self update:tweet];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } failure:nil];
+}
+
+- (void)postUpdateWithParams:(NSMutableDictionary *)params
+                      success:(void(^)(Tweet *tweet))success
+                      failure:(void(^)(NSError *error))failure;
+{
+    NSLog(@"post update with params with params: %@", params);
+    
+    [[TwitterClient instance] updateWithParams:params
+                                           success:^(AFHTTPRequestOperation *operation, Tweet *tweet) {
+                                               NSLog(@"success: %@", tweet);
+                                               success(tweet);
+                                           }
+                                           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                               NSLog(@"failure: %@", error);
+                                               if (failure != nil) {
+                                                   failure(error);
+                                               }
+                                           }];
 }
 
 @end

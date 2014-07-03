@@ -25,6 +25,6 @@
 
 + (NSValueTransformer *)profileBackgroundImageUrlJSONTransformer;
 + (NSValueTransformer *)profileImageUrlJSONTransformer;
-+ (User *)fromJson:(id)response;
++ (User *)parseUser:(id)response;
 
 @end
