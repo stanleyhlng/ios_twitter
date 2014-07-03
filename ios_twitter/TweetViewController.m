@@ -68,6 +68,7 @@
     NSLog(@"handle reply");
     
     ComposeViewController *vc = [[ComposeViewController alloc] init];
+    vc.tweet = self.tweet;
     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
     
     [self presentViewController:nvc animated:YES completion:nil];

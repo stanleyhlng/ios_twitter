@@ -43,6 +43,7 @@
     else if (params[@"count"] == nil){
         params[@"count"] = [[NSNumber alloc] initWithInt:2];
     }
+    NSLog(@"client: params: %@", params);
     
     return [self GET:@"1.1/statuses/home_timeline.json"
           parameters:params

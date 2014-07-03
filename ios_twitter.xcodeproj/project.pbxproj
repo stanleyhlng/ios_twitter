@@ -31,6 +31,7 @@
 		203E733219613D7000C3CB8E /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 203E733019613D7000C3CB8E /* LoginViewController.m */; };
 		203E733319613D7000C3CB8E /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 203E733119613D7000C3CB8E /* LoginViewController.xib */; };
 		203E73371962852C00C3CB8E /* NSURL+DictionaryFromQueryString.m in Sources */ = {isa = PBXBuildFile; fileRef = 203E73361962852C00C3CB8E /* NSURL+DictionaryFromQueryString.m */; };
+		207E801B1965FAC9009193DC /* NSMutableString+AppendPrefix.m in Sources */ = {isa = PBXBuildFile; fileRef = 207E801A1965FAC9009193DC /* NSMutableString+AppendPrefix.m */; };
 		20DD7CF51963CA3100C96CDF /* Tweet.m in Sources */ = {isa = PBXBuildFile; fileRef = 20DD7CF41963CA3100C96CDF /* Tweet.m */; };
 		20DD7CF91963F0AC00C96CDF /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 20DD7CF81963F0AC00C96CDF /* User.m */; };
 		E29910DAD0204799B49F921B /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4067FF078C98466F91D533E7 /* libPods.a */; };
@@ -83,6 +84,8 @@
 		203E733119613D7000C3CB8E /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		203E73351962852C00C3CB8E /* NSURL+DictionaryFromQueryString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+DictionaryFromQueryString.h"; sourceTree = "<group>"; };
 		203E73361962852C00C3CB8E /* NSURL+DictionaryFromQueryString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+DictionaryFromQueryString.m"; sourceTree = "<group>"; };
+		207E80191965FAC9009193DC /* NSMutableString+AppendPrefix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableString+AppendPrefix.h"; sourceTree = "<group>"; };
+		207E801A1965FAC9009193DC /* NSMutableString+AppendPrefix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableString+AppendPrefix.m"; sourceTree = "<group>"; };
 		20DD7CF31963CA3100C96CDF /* Tweet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tweet.h; sourceTree = "<group>"; };
 		20DD7CF41963CA3100C96CDF /* Tweet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tweet.m; sourceTree = "<group>"; };
 		20DD7CF71963F0AC00C96CDF /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
@@ -253,6 +256,7 @@
 		203E73251961250A00C3CB8E /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				207E80181965FAAC009193DC /* Append Prefix */,
 				203E7334196284C100C3CB8E /* Dicitonary From Query String */,
 				203E73291961252C00C3CB8E /* Infinite Scroll */,
 			);
@@ -294,6 +298,15 @@
 				203E73361962852C00C3CB8E /* NSURL+DictionaryFromQueryString.m */,
 			);
 			name = "Dicitonary From Query String";
+			sourceTree = "<group>";
+		};
+		207E80181965FAAC009193DC /* Append Prefix */ = {
+			isa = PBXGroup;
+			children = (
+				207E80191965FAC9009193DC /* NSMutableString+AppendPrefix.h */,
+				207E801A1965FAC9009193DC /* NSMutableString+AppendPrefix.m */,
+			);
+			name = "Append Prefix";
 			sourceTree = "<group>";
 		};
 		20DD7CF11963C9B200C96CDF /* Models */ = {
@@ -465,6 +478,7 @@
 				203E73281961252500C3CB8E /* UIScrollView+InfiniteScroll.m in Sources */,
 				203E732D1961303E00C3CB8E /* TwitterClient.m in Sources */,
 				20DD7CF91963F0AC00C96CDF /* User.m in Sources */,
+				207E801B1965FAC9009193DC /* NSMutableString+AppendPrefix.m in Sources */,
 				203E73171960FD0B00C3CB8E /* TimelineViewController.m in Sources */,
 				203A9AFB196521290067E7F8 /* Session.m in Sources */,
 				20DD7CF51963CA3100C96CDF /* Tweet.m in Sources */,
