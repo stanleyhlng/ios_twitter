@@ -39,19 +39,20 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
-    // set user in session
-    [self loadCredentialsWithParams:nil success:^(User *user) {
-        
-        [[Session instance] setUser:user];
-        
-        // present timeline if it is authorized
-        NSLog(@"is_authorized: %d", [[TwitterClient instance] isAuthorized]);
-        if ([[TwitterClient instance] isAuthorized] == 1) {
-            [self presentTimeline];
-        }
-        
-    } failure:nil];
+
+    // present timeline if it is authorized
+    NSLog(@"is_authorized: %d", [[TwitterClient instance] isAuthorized]);
+    if ([[TwitterClient instance] isAuthorized] == 1) {
+
+        // set user in session
+        [self loadCredentialsWithParams:nil success:^(User *user) {
+            
+            [[Session instance] setUser:user];
+            
+        } failure:nil];
+
+        [self presentTimeline];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -79,12 +80,9 @@
 {
     NSLog(@"handle sign in");
     
-    [[TwitterClient instance] connectWithSuccess:^
-    {
+    [[TwitterClient instance] connectWithSuccess:^{
         NSLog(@"Login view controller: connect ok!");
-    }
-                                         failure:^(NSError *error)
-    {
+    } failure:^(NSError *error) {
         NSLog(@"Login view controller: connect fail!");
     }];
 }
