@@ -99,6 +99,13 @@
                                          [NSMutableString stringWithFormat:@"@%@", self.tweet.user.screenName]
                                         ]];
         }
+        else if (self.tweet.inReplyToScreenName != nil) {
+            // USER + REPLIED.USER
+            [names addObjectsFromArray:@[
+                                         [NSMutableString stringWithFormat:@"@%@", self.tweet.inReplyToScreenName],
+                                         [NSMutableString stringWithFormat:@"@%@", self.tweet.user.screenName]
+                                         ]];
+        }
         else {
             // USER
             [names addObjectsFromArray:@[
@@ -121,10 +128,16 @@
 {
     NSLog(@"handle tweet");
 
+    // required: status
     NSMutableDictionary *params =
     [@{
        @"status": self.textView.text
-       } mutableCopy];
+    } mutableCopy];
+    
+    // optional: in_reply_to_status_id
+    if (self.tweet != nil) {
+        params[@"in_reply_to_status_id"] = self.tweet.id;
+    }
     
     [self postUpdateWithParams:params success:^(Tweet *tweet) {
         NSLog(@"[UPDATE] tweet: %@", tweet);

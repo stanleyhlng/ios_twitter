@@ -60,6 +60,8 @@
                                      success:(void(^)(AFHTTPRequestOperation *operation, Tweet *tweet))success
                                      failure:(void(^)(AFHTTPRequestOperation *operation, NSError *error))failure
 {
+    NSLog(@"client: params: %@", params);
+
     return [self POST:@"1.1/statuses/update.json"
           parameters:params
              success:^(AFHTTPRequestOperation *operation, id response) {
