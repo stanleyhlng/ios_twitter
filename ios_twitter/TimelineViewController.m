@@ -27,7 +27,7 @@
 - (void)handleLoadMore;
 - (void)handleRefresh;
 - (void)handleSignOut;
-- (void)handleTweet;
+- (void)handleTweetWithIndex:(NSInteger)index;
 - (void)getTimelineWithParams:(NSMutableDictionary *)params
                       success:(void(^)(NSArray *tweets))success
                       failure:(void(^)(NSError *error))failure;
@@ -46,7 +46,7 @@
         [self customizeTitleView];
 
         self.tweets = [[NSMutableArray alloc] initWithCapacity:0];
-        /*
+
         [self getTimelineWithParams:nil success:^(NSArray *tweets) {
             
             self.tweets = [tweets mutableCopy];
@@ -55,9 +55,6 @@
             [self.tweetsTableView reloadData];
             
         } failure:nil];
-        */
-         
-        //[self loadCredentialsData];
     }
     return self;
 }
@@ -152,11 +149,12 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)handleTweet
+- (void)handleTweetWithIndex:(NSInteger)index
 {
-    NSLog(@"handle tweet");
+    NSLog(@"handle tweet with index: %d", index);
     
     TweetViewController *vc = [[TweetViewController alloc] init];
+    vc.tweet = [self.tweets objectAtIndex:index];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -218,7 +216,7 @@
     NSLog(@"did select row at index path: %d", indexPath.row);
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    [self handleTweet];
+    [self handleTweetWithIndex:indexPath.row];
 }
 
 #pragma ComposeViewControllerDelegate methods
@@ -229,6 +227,8 @@
     
     [self.tweets insertObject:tweet atIndex:0];
     NSLog(@"[UPDATE] tweets.count: 1 / %d", self.tweets.count);
+    
+    [self.tweetsTableView reloadData];
 }
 
 @end

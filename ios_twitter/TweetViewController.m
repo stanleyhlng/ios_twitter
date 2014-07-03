@@ -12,6 +12,7 @@
 @interface TweetViewController ()
 - (void)customizeRightBarButton;
 - (void)customizeTitleView;
+- (void)setupTweet;
 - (void)handleReply;
 @end
 
@@ -32,12 +33,14 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [self setupTweet];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+    [self setupTweet];
 }
 
 - (void)customizeRightBarButton
@@ -53,6 +56,11 @@
 - (void)customizeTitleView
 {
     self.title = @"Tweet";
+}
+
+- (void)setupTweet
+{
+    NSLog(@"setup tweet: %@", self.tweet);
 }
 
 - (void)handleReply
