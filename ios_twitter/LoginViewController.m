@@ -9,10 +9,17 @@
 #import "LoginViewController.h"
 #import "TimelineViewController.h"
 #import "TwitterClient.h"
+#import "User.h"
+#import "Session.h"
 
 @interface LoginViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *signInButton;
+
 - (void)handleSignIn;
+- (void)loadCredentialsWithParams:(NSMutableDictionary *)params
+                          success:(void(^)(User *user))success
+                          failure:(void(^)(NSError *error))failure;
+- (void)presentTimeline;
 @end
 
 @implementation LoginViewController
@@ -33,10 +40,18 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    NSLog(@"is_authorized: %d", [[TwitterClient instance] isAuthorized]);
-    if ([[TwitterClient instance] isAuthorized] == 1) {
-        [self loadTimeLineView];
-    }
+    // set user in session
+    [self loadCredentialsWithParams:nil success:^(User *user) {
+        
+        [[Session instance] setUser:user];
+        
+        // present timeline if it is authorized
+        NSLog(@"is_authorized: %d", [[TwitterClient instance] isAuthorized]);
+        if ([[TwitterClient instance] isAuthorized] == 1) {
+            [self presentTimeline];
+        }
+        
+    } failure:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -74,7 +89,26 @@
     }];
 }
 
-- (void)loadTimeLineView
+- (void)loadCredentialsWithParams:(NSMutableDictionary *)params
+                       success:(void(^)(User *user))success
+                       failure:(void(^)(NSError *error))failure;
+{
+    NSLog(@"load credentials data");
+    
+    [[TwitterClient instance] verifyCredentialsWithParams:nil
+                                                  success:^(AFHTTPRequestOperation *operation, User *user) {
+                                                      NSLog(@"success: %@", user);
+                                                      success(user);
+                                                  }
+                                                  failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                      NSLog(@"failure: %@", error);
+                                                      if (failure != nil) {
+                                                          failure(error);
+                                                      }
+                                                  }];
+}
+
+- (void)presentTimeline
 {
     NSLog(@"Load timeline view");
     TimelineViewController *vc = [[TimelineViewController alloc] init];

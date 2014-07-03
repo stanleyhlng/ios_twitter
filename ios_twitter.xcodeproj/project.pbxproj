@@ -19,6 +19,7 @@
 		201284A21960FA080068EAF8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2012848A1960FA080068EAF8 /* UIKit.framework */; };
 		201284AA1960FA090068EAF8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 201284A81960FA090068EAF8 /* InfoPlist.strings */; };
 		201284AC1960FA090068EAF8 /* ios_twitterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 201284AB1960FA090068EAF8 /* ios_twitterTests.m */; };
+		203A9AFB196521290067E7F8 /* Session.m in Sources */ = {isa = PBXBuildFile; fileRef = 203A9AFA196521290067E7F8 /* Session.m */; };
 		203E73171960FD0B00C3CB8E /* TimelineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 203E73151960FD0B00C3CB8E /* TimelineViewController.m */; };
 		203E73181960FD0B00C3CB8E /* TimelineViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 203E73161960FD0B00C3CB8E /* TimelineViewController.xib */; };
 		203E731E1961035500C3CB8E /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 203E731C1961035500C3CB8E /* ComposeViewController.m */; };
@@ -62,6 +63,8 @@
 		201284A71960FA090068EAF8 /* ios_twitterTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ios_twitterTests-Info.plist"; sourceTree = "<group>"; };
 		201284A91960FA090068EAF8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		201284AB1960FA090068EAF8 /* ios_twitterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ios_twitterTests.m; sourceTree = "<group>"; };
+		203A9AF9196521290067E7F8 /* Session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Session.h; sourceTree = "<group>"; };
+		203A9AFA196521290067E7F8 /* Session.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Session.m; sourceTree = "<group>"; };
 		203E73141960FD0B00C3CB8E /* TimelineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimelineViewController.h; sourceTree = "<group>"; };
 		203E73151960FD0B00C3CB8E /* TimelineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimelineViewController.m; sourceTree = "<group>"; };
 		203E73161960FD0B00C3CB8E /* TimelineViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimelineViewController.xib; sourceTree = "<group>"; };
@@ -208,6 +211,15 @@
 			name = Clients;
 			sourceTree = "<group>";
 		};
+		203A9AF8196521140067E7F8 /* Session */ = {
+			isa = PBXGroup;
+			children = (
+				203A9AF9196521290067E7F8 /* Session.h */,
+				203A9AFA196521290067E7F8 /* Session.m */,
+			);
+			name = Session;
+			sourceTree = "<group>";
+		};
 		203E73131960FCF500C3CB8E /* Timeline */ = {
 			isa = PBXGroup;
 			children = (
@@ -287,6 +299,7 @@
 		20DD7CF11963C9B200C96CDF /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				203A9AF8196521140067E7F8 /* Session */,
 				20DD7CF21963C9F900C96CDF /* Tweet */,
 				20DD7CF61963F09400C96CDF /* User */,
 			);
@@ -453,6 +466,7 @@
 				203E732D1961303E00C3CB8E /* TwitterClient.m in Sources */,
 				20DD7CF91963F0AC00C96CDF /* User.m in Sources */,
 				203E73171960FD0B00C3CB8E /* TimelineViewController.m in Sources */,
+				203A9AFB196521290067E7F8 /* Session.m in Sources */,
 				20DD7CF51963CA3100C96CDF /* Tweet.m in Sources */,
 				203E731E1961035500C3CB8E /* ComposeViewController.m in Sources */,
 				203E7323196108B000C3CB8E /* TweetViewController.m in Sources */,

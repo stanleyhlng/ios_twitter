@@ -7,6 +7,7 @@
 //
 
 #import "ComposeViewController.h"
+#import "Session.h"
 #import "AVHexColor.h"
 
 @interface ComposeViewController ()
@@ -35,6 +36,9 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    User *user = [[Session instance] getUser];
+    NSLog(@"user: %@", user);
 }
 
 - (void)didReceiveMemoryWarning

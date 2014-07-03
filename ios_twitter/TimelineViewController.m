@@ -28,8 +28,7 @@
 - (void)handleRefresh;
 - (void)handleSignOut;
 - (void)handleTweet;
-- (void)loadCredentialsData;
-- (void)loadTimelineDataWithParams:(NSMutableDictionary *)params
+- (void)loadTimelineWithParams:(NSMutableDictionary *)params
                            success:(void(^)(NSArray *tweets))success
                            failure:(void(^)(NSError *error))failure;
 - (void)setupTableView;
@@ -46,11 +45,17 @@
         [self customizeRightBarButton];
         [self customizeTitleView];
         
-        [self loadTimelineDataWithParams:nil success:^(NSArray *tweets) {
+        /*
+        [self loadTimelineWithParams:nil success:^(NSArray *tweets) {
+            
             self.tweets = [tweets mutableCopy];
             NSLog(@"[INIT] tweets.count: %d / %d", tweets.count, self.tweets.count);
+            
+            [self.tweetsTableView reloadData];
+            
         } failure:nil];
-        
+        */
+         
         //[self loadCredentialsData];
     }
     return self;
@@ -116,7 +121,7 @@
       @"max_id": tweet.id
     } mutableCopy];
     
-    [self loadTimelineDataWithParams:params success:^(NSArray *tweets) {
+    [self loadTimelineWithParams:params success:^(NSArray *tweets) {
         [self.tweets addObjectsFromArray:tweets];
         NSLog(@"[RELOAD] tweets.count: %d / %d", tweets.count, self.tweets.count);
     } failure:nil];
@@ -128,7 +133,7 @@
     
     [self.refreshControl endRefreshing];
 
-    [self loadTimelineDataWithParams:nil success:^(NSArray *tweets) {
+    [self loadTimelineWithParams:nil success:^(NSArray *tweets) {
         self.tweets = [tweets mutableCopy];
         NSLog(@"[REFERSH] tweets.count: %d / %d", tweets.count, self.tweets.count);
     } failure:nil];
@@ -153,22 +158,9 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)loadCredentialsData
-{
-    NSLog(@"load credentials data");
-
-    [[TwitterClient instance] verifyCredentialsWithParams:nil
-                                                  success:^(AFHTTPRequestOperation *operation, User *user) {
-                                                      NSLog(@"success: %@", user);
-                                                  }
-                                                  failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                                      NSLog(@"failure: %@", error);
-                                                }];
-}
-
-- (void)loadTimelineDataWithParams:(NSMutableDictionary *)params
-                           success:(void(^)(NSArray *tweets))success
-                           failure:(void(^)(NSError *error))failure;
+- (void)loadTimelineWithParams:(NSMutableDictionary *)params
+                       success:(void(^)(NSArray *tweets))success
+                       failure:(void(^)(NSError *error))failure;
 {
     NSLog(@"load timeline data");
     
@@ -214,7 +206,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 20;
+    return self.tweets.count;
 }
 
 #pragma UITableViewDelegate methods
