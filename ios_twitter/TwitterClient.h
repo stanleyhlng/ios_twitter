@@ -33,6 +33,17 @@
 // ==================================================
 // TWEETS
 
+// POST statuses/retweet/:id
+// https://api.twitter.com/1.1/statuses/retweet/:id.json
+- (AFHTTPRequestOperation *)retweetStatusWithParams:(NSDictionary *)params
+                                            success:(void(^)(AFHTTPRequestOperation *operation, Tweet *tweet))success
+                                            failure:(void(^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+// POST statuses/destroy/:id
+// https://dev.twitter.com/docs/api/1.1/post/statuses/destroy/%3Aid
+- (AFHTTPRequestOperation *)destroyStatusWithParams:(NSDictionary *)params
+                                              success:(void(^)(AFHTTPRequestOperation *operation, Tweet *tweet))success
+                                              failure:(void(^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 // ==================================================
 // FAVORITES

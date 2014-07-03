@@ -77,6 +77,38 @@
 
 #pragma TWEETS methods
 
+// POST statuses/retweet/:id
+// https://api.twitter.com/1.1/statuses/retweet/:id.json
+- (AFHTTPRequestOperation *)retweetStatusWithParams:(NSDictionary *)params
+                                            success:(void(^)(AFHTTPRequestOperation *operation, Tweet *tweet))success
+                                            failure:(void(^)(AFHTTPRequestOperation *operation, NSError *error))failure
+{
+    NSLog(@"client: params: %@", params);
+    return [self POST:[NSString stringWithFormat:@"1.1/statuses/retweet/%@.json", params[@"id"]]
+           parameters:params
+              success:^(AFHTTPRequestOperation *operation, id response) {
+                  NSLog(@"success: %@", response);
+                  success(operation, [Tweet parseTweet:response]);
+              }
+              failure:failure];
+}
+
+// POST statuses/destroy/:id
+// https://dev.twitter.com/docs/api/1.1/post/statuses/destroy/%3Aid
+- (AFHTTPRequestOperation *)destroyStatusWithParams:(NSDictionary *)params
+                                            success:(void(^)(AFHTTPRequestOperation *operation, Tweet *tweet))success
+                                            failure:(void(^)(AFHTTPRequestOperation *operation, NSError *error))failure
+{
+    NSLog(@"client: params: %@", params);
+    return [self POST:[NSString stringWithFormat:@"1.1/statuses/destroy/%@.json", params[@"id"]]
+           parameters:params
+              success:^(AFHTTPRequestOperation *operation, id response) {
+                  NSLog(@"success: %@", response);
+                  success(operation, [Tweet parseTweet:response]);
+              }
+              failure:failure];
+}
+
 
 #pragma FAVORITES methods
 

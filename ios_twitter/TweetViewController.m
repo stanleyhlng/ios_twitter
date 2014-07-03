@@ -16,12 +16,19 @@
 - (void)setupTweet;
 - (void)handleFavorite;
 - (void)handleReply;
-- (void)createFavoriteWithParam:(NSMutableDictionary *)params
+- (void)handleRetweet;
+- (void)createFavoriteWithParams:(NSMutableDictionary *)params
                         success:(void(^)(Tweet *tweet))success
                         failure:(void(^)(NSError *error))failure;
-- (void)destroyFavoriteWithParam:(NSMutableDictionary *)params
+- (void)destroyFavoriteWithParams:(NSMutableDictionary *)params
                         success:(void(^)(Tweet *tweet))success
                         failure:(void(^)(NSError *error))failure;
+- (void)retweetStatusWithParams:(NSMutableDictionary *)params
+                       success:(void(^)(Tweet *tweet))success
+                       failure:(void(^)(NSError *error))failure;
+- (void)destroyStatusWithParams:(NSMutableDictionary *)params
+                         success:(void(^)(Tweet *tweet))success
+                         failure:(void(^)(NSError *error))failure;
 @end
 
 @implementation TweetViewController
@@ -74,32 +81,30 @@
 - (void)handleFavorite
 {
     NSLog(@"handle favorite");
-    /*
-     NSLog(@"tweet.favorited: %@", self.tweet.favorited);
-     NSMutableDictionary *params =
-     [@{
-     @"id": self.tweet.id
-     } mutableCopy];
+
+    NSLog(@"tweet.favorited: %@", self.tweet.favorited);
+    
+    NSMutableDictionary *params =
+    [@{
+       @"id": self.tweet.id
+    } mutableCopy];
      
-     if ([self.tweet.favorited isEqualToNumber:[NSNumber numberWithInt:0]]) {
-     NSLog(@"create favorite");
+    if ([self.tweet.favorited isEqualToNumber:[NSNumber numberWithInt:0]]) {
+        NSLog(@"create favorite");
      
-     [self createFavoriteWithParam:params success:^(Tweet *tweet) {
-     NSLog(@"[FAVORITE] tweets: %@", tweet);
-     self.tweet = tweet;
+        [self createFavoriteWithParams:params success:^(Tweet *tweet) {
+            NSLog(@"[FAVORITE] tweets: %@", tweet);
+            self.tweet = tweet;
+        } failure:nil];
+    }
+    else {
+        NSLog(@"destory favorite");
      
-     } failure:nil];
+        [self destroyFavoriteWithParams:params success:^(Tweet *tweet) {
+            NSLog(@"[UNFAVORITE] tweets: %@", tweet);
+            self.tweet = tweet;
+        } failure:nil];
      }
-     else {
-     NSLog(@"destory favorite");
-     
-     [self destroyFavoriteWithParam:params success:^(Tweet *tweet) {
-     NSLog(@"[UNFAVORITE] tweets: %@", tweet);
-     self.tweet = tweet;
-     
-     } failure:nil];
-     }
-     */
 }
 
 - (void)handleReply
@@ -114,9 +119,38 @@
     [self presentViewController:nvc animated:YES completion:nil];
 }
 
-- (void)createFavoriteWithParam:(NSMutableDictionary *)params
-                        success:(void(^)(Tweet *tweet))success
-                        failure:(void(^)(NSError *error))failure
+- (void)handleRetweet
+{
+    NSLog(@"handle retweet");
+    
+    NSLog(@"tweet.retweeted: %@", self.tweet.retweeted);
+    NSMutableDictionary *params =
+    [@{
+       @"id": self.tweet.id
+       } mutableCopy];
+    
+    if ([self.tweet.retweeted isEqualToNumber:[NSNumber numberWithInt:0]]) {
+        NSLog(@"retweet status");
+        
+        [self retweetStatusWithParams:params success:^(Tweet *tweet) {
+            NSLog(@"[RETWEET] tweets: %@", tweet);
+            self.tweet = tweet;
+        } failure:nil];
+    }
+    else {
+        NSLog(@"destroy status");
+        
+        [self destroyStatusWithParams:params success:^(Tweet *tweet) {
+            NSLog(@"[UNRETWEET] tweets: %@", tweet);
+            self.tweet = tweet;
+            
+        } failure:nil];
+    }
+}
+
+- (void)createFavoriteWithParams:(NSMutableDictionary *)params
+                         success:(void(^)(Tweet *tweet))success
+                         failure:(void(^)(NSError *error))failure
 {
     [[TwitterClient instance] createFavoriteWithParams:params
                                                success:^(AFHTTPRequestOperation *operation, Tweet *tweet) {
@@ -131,9 +165,9 @@
                                                }];
 }
 
-- (void)destroyFavoriteWithParam:(NSMutableDictionary *)params
-                         success:(void(^)(Tweet *tweet))success
-                         failure:(void(^)(NSError *error))failure
+- (void)destroyFavoriteWithParams:(NSMutableDictionary *)params
+                          success:(void(^)(Tweet *tweet))success
+                          failure:(void(^)(NSError *error))failure
 {
     [[TwitterClient instance] destroyFavoriteWithParams:params
                                                 success:^(AFHTTPRequestOperation *operation, Tweet *tweet) {
@@ -146,6 +180,40 @@
                                                         failure(error);
                                                     }
                                                 }];
+}
+
+- (void)retweetStatusWithParams:(NSMutableDictionary *)params
+                        success:(void(^)(Tweet *tweet))success
+                        failure:(void(^)(NSError *error))failure
+{
+    [[TwitterClient instance] retweetStatusWithParams:params
+                                              success:^(AFHTTPRequestOperation *operation, Tweet *tweet) {
+                                                  NSLog(@"success: %@", tweet);
+                                                  success(tweet);
+                                              }
+                                              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                  NSLog(@"failure: %@", error);
+                                                  if (failure != nil) {
+                                                      failure(error);
+                                                  }
+                                              }];
+}
+
+- (void)destroyStatusWithParams:(NSMutableDictionary *)params
+                        success:(void(^)(Tweet *tweet))success
+                        failure:(void(^)(NSError *error))failure
+{
+    [[TwitterClient instance] destroyStatusWithParams:params
+                                              success:^(AFHTTPRequestOperation *operation, Tweet *tweet) {
+                                                  NSLog(@"success: %@", tweet);
+                                                  success(tweet);
+                                              }
+                                              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                  NSLog(@"failure: %@", error);
+                                                  if (failure != nil) {
+                                                      failure(error);
+                                                  }
+                                              }];
 }
 
 
