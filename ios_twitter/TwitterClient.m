@@ -28,6 +28,8 @@
     return instance;
 }
 
+#pragma TIMELINES methods
+
 // GET statuses/home_timeline
 // https://dev.twitter.com/docs/api/1.1/get/statuses/home_timeline
 - (AFHTTPRequestOperation *)homeTimelineWithParams:(NSMutableDictionary *)params
@@ -71,6 +73,8 @@
              failure:failure];
 }
 
+#pragma USERS methods
+
 // GET account/verify_credentials
 // https://dev.twitter.com/docs/api/1.1/get/account/verify_credentials
 - (AFHTTPRequestOperation *)verifyCredentialsWithParams:(NSDictionary *)params
@@ -85,6 +89,8 @@
              }
              failure:failure];
 }
+
+#pragma OAUTH methods
 
 // POST oauth/request_token
 // https://dev.twitter.com/docs/api/1/post/oauth/request_token
@@ -129,29 +135,31 @@
     }
 }
 
+#pragma HELPERS methods
+
 - (void)connectWithSuccess:(void(^)())success
                    failure:(void(^)(NSError *error))failure;
 {
     [self.requestSerializer removeAccessToken];
     
     [self requestTokenWithSuccess:^(BDBOAuthToken *requestToken)
-    {
-        // store the request token for OAuth1.0a
-        if (requestToken != nil) {
-            NSLog(@"Got the request token.");
-            NSLog(@"request_token: %@", requestToken.token);
-            NSLog(@"request_token_secret: %@", requestToken.secret);
-        }
-
-        // launch the authorization URL in the browser
-        //NSString *authorizeUrl = [NSString stringWithFormat:@"https://api.twitter.com/oauth/authorize?oauth_token=%@", requestToken.token];
-        NSString *authorizeUrl = [NSString stringWithFormat:@"https://api.twitter.com/oauth/authenticate?oauth_token=%@", requestToken.token];
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:authorizeUrl]];
-    }
+     {
+         // store the request token for OAuth1.0a
+         if (requestToken != nil) {
+             NSLog(@"Got the request token.");
+             NSLog(@"request_token: %@", requestToken.token);
+             NSLog(@"request_token_secret: %@", requestToken.secret);
+         }
+         
+         // launch the authorization URL in the browser
+         //NSString *authorizeUrl = [NSString stringWithFormat:@"https://api.twitter.com/oauth/authorize?oauth_token=%@", requestToken.token];
+         NSString *authorizeUrl = [NSString stringWithFormat:@"https://api.twitter.com/oauth/authenticate?oauth_token=%@", requestToken.token];
+         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:authorizeUrl]];
+     }
                           failure:^(NSError *error)
-    {
-        NSLog(@"Fail to get the request token.");
-    }];
+     {
+         NSLog(@"Fail to get the request token.");
+     }];
 }
 
 - (void)authorizeWithURL:(NSURL *)url
@@ -160,22 +168,22 @@
 {
     [self accessTokenWithURL:url
                      success:^(BDBOAuthToken *accessToken)
-    {
-        // store the access token in client
-        if (accessToken != nil) {
-            NSLog(@"Got the access token.");
-            NSLog(@"access_token: %@", accessToken.token);
-            NSLog(@"access_token_secret: %@", accessToken.secret);
-            
-            [self.requestSerializer saveAccessToken:accessToken];
-        }
-        success();
-    }
+     {
+         // store the access token in client
+         if (accessToken != nil) {
+             NSLog(@"Got the access token.");
+             NSLog(@"access_token: %@", accessToken.token);
+             NSLog(@"access_token_secret: %@", accessToken.secret);
+             
+             [self.requestSerializer saveAccessToken:accessToken];
+         }
+         success();
+     }
                      failure:^(NSError *error)
-    {
-        NSLog(@"Fail to get the access token.");
-        failure(error);
-    }];
+     {
+         NSLog(@"Fail to get the access token.");
+         failure(error);
+     }];
 }
 
 // Removes the access tokens (for signing out)

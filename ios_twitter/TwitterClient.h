@@ -15,6 +15,9 @@
 
 + (TwitterClient *)instance;
 
+// ==================================================
+// TIMELINES
+
 // GET statuses/home_timeline
 // https://dev.twitter.com/docs/api/1.1/get/statuses/home_timeline
 - (AFHTTPRequestOperation *)homeTimelineWithParams:(NSDictionary *)params
@@ -27,11 +30,19 @@
                                            success:(void(^)(AFHTTPRequestOperation *operation, Tweet *tweet))success
                                            failure:(void(^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
+
+// ==================================================
+// USERS
+
 // GET account/verify_credentials
 // https://dev.twitter.com/docs/api/1.1/get/account/verify_credentials
 - (AFHTTPRequestOperation *)verifyCredentialsWithParams:(NSDictionary *)params
                                            success:(void(^)(AFHTTPRequestOperation *operation, User *user))success
                                            failure:(void(^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+
+// ==================================================
+// OAUTH
 
 // POST oauth/request_token
 // https://dev.twitter.com/docs/api/1/post/oauth/request_token
@@ -43,6 +54,10 @@
 - (void)accessTokenWithURL:(NSURL *)url
                    success:(void(^)(BDBOAuthToken *accessToken))success
                    failure:(void(^)(NSError *error))failure;
+
+
+// ==================================================
+// HELPERS
 
 - (void)connectWithSuccess:(void(^)())success
                    failure:(void(^)(NSError *error))failure;
