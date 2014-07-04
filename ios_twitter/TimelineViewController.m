@@ -282,7 +282,8 @@
     [self.prototypeCell layoutIfNeeded];
 
     CGSize size = [self.prototypeCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-    return size.height + 1;
+    //return size.height + 1;
+    return 150;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
