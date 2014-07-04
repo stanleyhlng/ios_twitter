@@ -14,6 +14,7 @@
 #import "TwitterClient.h"
 #import "Tweet.h"
 #import "User.h"
+#import "TweetTableViewCell.h"
 
 @interface TimelineViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tweetsTableView;
@@ -187,10 +188,14 @@
     
     self.tweetsTableView.dataSource = self;
     self.tweetsTableView.delegate = self;
+    
     [self.tweetsTableView addInfiniteScrollWithHandler:^(UIScrollView *scrollView) {
         [self handleLoadMore];
         [self.tweetsTableView finishInfiniteScroll];
     }];
+    
+    [self.tweetsTableView registerNib:[UINib nibWithNibName:@"TweetTableViewCell" bundle:nil]
+               forCellReuseIdentifier:@"TweetTableViewCell"];
 }
 
 #pragma UITableViewDataSource methods
@@ -199,8 +204,14 @@
 {
     NSLog(@"cell for row at index path: %d", indexPath.row);
     
+    /*
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
     cell.textLabel.text = @"Tweet";
+    return cell;
+     */
+
+    TweetTableViewCell *cell = [self.tweetsTableView dequeueReusableCellWithIdentifier:@"TweetTableViewCell"];
+    
     return cell;
 }
 
