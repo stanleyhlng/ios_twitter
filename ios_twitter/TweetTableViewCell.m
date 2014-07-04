@@ -12,8 +12,10 @@
 #import "UIImageView+UIActivityIndicatorForSDWebImage.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <DateTools.h>
+#import "AVHexColor.h"
 
 @interface TweetTableViewCell()
+- (void)handleReply;
 - (void)setupReplyButton;
 - (void)setupRetweetButton;
 - (void)setupFavoriteButton;
@@ -46,8 +48,8 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    [self.contentView layoutIfNeeded];
-    self.statusTextLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.statusTextLabel.frame);
+    //self.statusTextLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.statusTextLabel.frame);
+    //[self.contentView layoutIfNeeded];
 }
 
 - (void)configure
@@ -73,28 +75,56 @@
     [self setupRetweetView];
 }
 
+- (void)handleReply
+{
+    NSLog(@"handle reply");
+    NSLog(@"tweet: %@", self.tweet);
+}
+
 - (void)setupReplyButton
 {
     UIImage *image = [UIImage imageNamed:@"icon-reply"];
     image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     [self.replyButton setImage:image forState:UIControlStateNormal];
     self.replyButton.tintColor = [UIColor lightGrayColor];
+    
+    [self.replyButton addTarget:self action:@selector(handleReply) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)setupRetweetButton
 {
+    Tweet *tweet = self.tweet;
+    if (tweet.retweetedStatus != nil) {
+        tweet = tweet.retweetedStatus;
+    }
+    
+    UIColor *color = [UIColor lightGrayColor];
+    if ([tweet.retweeted intValue] == 1) {
+        color = [AVHexColor colorWithHexString:@"#5C9138"];
+    }
+    
     UIImage *image = [UIImage imageNamed:@"icon-retweet"];
     image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     [self.retweetButton setImage:image forState:UIControlStateNormal];
-    self.retweetButton.tintColor = [UIColor lightGrayColor];
+    self.retweetButton.tintColor = color;
 }
 
 - (void)setupFavoriteButton
 {
+    Tweet *tweet = self.tweet;
+    if (tweet.retweetedStatus != nil) {
+        tweet = tweet.retweetedStatus;
+    }
+
+    UIColor *color = [UIColor lightGrayColor];
+    if ([tweet.favorited intValue] == 1) {
+        color = [AVHexColor colorWithHexString:@"#FFAC33"];
+    }
+    
     UIImage *image = [UIImage imageNamed:@"icon-favorite"];
     image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     [self.favoriteButton setImage:image forState:UIControlStateNormal];
-    self.favoriteButton.tintColor = [UIColor lightGrayColor];
+    self.favoriteButton.tintColor = color;
 }
 
 - (void)setupProfileImageView
@@ -146,17 +176,25 @@
     NSDate *timeAgoDate = createdDate;
     
     self.dateLabel.font = [UIFont systemFontOfSize:13.0f];
+    self.dateLabel.textColor = [UIColor lightGrayColor];
     self.dateLabel.text = [NSString stringWithFormat:@"%@", timeAgoDate.shortTimeAgoSinceNow];
 }
 
 - (void)setupFavoriteCountLabel
 {
-    NSNumber *count = self.tweet.favoriteCount;
-    if (self.tweet.retweetedStatus != nil) {
-        count = self.tweet.retweetedStatus.favoriteCount;
+    Tweet *tweet = self.tweet;
+    if (tweet.retweetedStatus != nil) {
+        tweet = tweet.retweetedStatus;
     }
     
+    UIColor *color = [UIColor lightGrayColor];
+    if ([tweet.favorited intValue] == 1) {
+        color = [AVHexColor colorWithHexString:@"#FFAC33"];
+    }
+    
+    NSNumber *count = tweet.favoriteCount;
     self.favoriteCountLabel.font = [UIFont systemFontOfSize:13.0f];
+    self.favoriteCountLabel.textColor = color;
     self.favoriteCountLabel.text = [count stringValue];
 }
 
@@ -175,18 +213,31 @@
 - (void)setupRetweetLabel
 {
     User *user = self.tweet.user;
+    
+    self.retweetLabel.font = [UIFont systemFontOfSize:13.0f];
     self.retweetLabel.text = [user.name stringByAppendingString:@" retweeted"];
     self.retweetLabel.textColor = [UIColor lightGrayColor];
 }
 
 - (void)setupRetweetCountLabel
 {
+    Tweet *tweet = self.tweet;
+    if (tweet.retweetedStatus != nil) {
+        tweet = tweet.retweetedStatus;
+    }
+    
+    UIColor *color = [UIColor lightGrayColor];
+    if ([tweet.retweeted intValue] == 1) {
+        color = [AVHexColor colorWithHexString:@"#5C9138"];
+    }
+    
     NSNumber *count = self.tweet.retweetCount;
     if (self.tweet.retweetedStatus != nil) {
         count = self.tweet.retweetedStatus.retweetCount;
     }
     
     self.retweetCountLabel.font = [UIFont systemFontOfSize:13.0f];
+    self.retweetCountLabel.textColor = color;
     self.retweetCountLabel.text = [count stringValue];
 }
 

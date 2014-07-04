@@ -48,7 +48,7 @@
     }
     NSLog(@"client: params: %@", params);
     
-    return [self GET:@"1.1/statuses/home_timeline.json"
+    return [self GET:@"1.1/statuses/user_timeline.json"
           parameters:params
              success:^(AFHTTPRequestOperation *operation, id response) {
                  NSLog(@"success: %@", response);
