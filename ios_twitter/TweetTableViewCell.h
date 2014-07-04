@@ -10,4 +10,7 @@
 
 @interface TweetTableViewCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UILabel *screenNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *statusTextLabel;
+
 @end

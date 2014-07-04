@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tweetsTableView;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 @property (strong, nonatomic) NSMutableArray *tweets;
+@property (strong, nonatomic) TweetTableViewCell *prototypeCell;
 
 - (void)customizeLeftBarButton;
 - (void)customizeRightBarButton;
@@ -33,6 +34,7 @@
                       success:(void(^)(NSArray *tweets))success
                       failure:(void(^)(NSError *error))failure;
 - (void)setupTableView;
+- (TweetTableViewCell *)prototypeCell;
 @end
 
 @implementation TimelineViewController
@@ -48,6 +50,7 @@
 
         self.tweets = [[NSMutableArray alloc] initWithCapacity:0];
 
+        /*
         [self getTimelineWithParams:nil success:^(NSArray *tweets) {
             
             self.tweets = [tweets mutableCopy];
@@ -56,6 +59,8 @@
             [self.tweetsTableView reloadData];
             
         } failure:nil];
+        */
+
     }
     return self;
 }
@@ -194,7 +199,9 @@
         [self.tweetsTableView finishInfiniteScroll];
     }];
     
-    [self.tweetsTableView registerNib:[UINib nibWithNibName:@"TweetTableViewCell" bundle:nil]
+    // Table View Cell
+    UINib *nib = [UINib nibWithNibName:@"TweetTableViewCell" bundle:nil];
+    [self.tweetsTableView registerNib:nib
                forCellReuseIdentifier:@"TweetTableViewCell"];
 }
 
@@ -209,16 +216,48 @@
     cell.textLabel.text = @"Tweet";
     return cell;
      */
-
-    TweetTableViewCell *cell = [self.tweetsTableView dequeueReusableCellWithIdentifier:@"TweetTableViewCell"];
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetTableViewCell"];
+    [self configureCell:cell forRowAtIndexPath:indexPath];
     
     return cell;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.tweets.count;
+    //return self.tweets.count;
+    return 2;
 }
+
+- (void)configureCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([cell isKindOfClass:[TweetTableViewCell class]])
+    {
+        TweetTableViewCell *c = (TweetTableViewCell *)cell;
+        c.statusTextLabel.text = @"Hello World";
+        c.screenNameLabel.text = @"Yahoo";
+        
+        /*
+         CustomTableViewCell *textCell = (CustomTableViewCell *)cell;
+         
+         Article *article_item = _feedItems[indexPath.row];
+         
+         NSString *fulltitle = article_item.Title;
+         
+         //                fulltitle = article_item.Cat_Name; // testing category name
+         
+         if (article_item.Subtitle != nil && article_item.Subtitle.length != 0) {
+         fulltitle = [fulltitle stringByAppendingString:@": "];
+         fulltitle = [fulltitle stringByAppendingString:article_item.Subtitle];
+         }
+         textCell.lineLabel.text = fulltitle;
+         
+         textCell.lineLabel.numberOfLines = 0;
+         textCell.lineLabel.font = [UIFont fontWithName:@"Novecento wide" size:12.0f];
+         */
+    }
+}
+
 
 #pragma UITableViewDelegate methods
 
@@ -229,6 +268,22 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self handleTweetWithIndex:indexPath.row];
 }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"height for row at index path: %d", indexPath.row);
+    
+    if (!self.prototypeCell) {
+        self.prototypeCell = [self.tweetsTableView dequeueReusableCellWithIdentifier:@"TweetTableViewCell"];
+    }
+    
+    [self configureCell:self.prototypeCell forRowAtIndexPath:indexPath];
+    [self.prototypeCell layoutIfNeeded];
+
+    CGSize size = [self.prototypeCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    return size.height + 1;
+}
+
 
 #pragma ComposeViewControllerDelegate methods
 
