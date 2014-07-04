@@ -243,6 +243,7 @@
             c.statusTextLabel.text = @"HELLO HELLO";
         }
         
+        c.delegate = self;
         c.index = indexPath.row;
         c.tweet = self.tweets[indexPath.row];
         [c configure];
@@ -310,6 +311,16 @@
     
     [self.tweets insertObject:tweet atIndex:0];
     NSLog(@"[UPDATE] tweets.count: 1 / %d", self.tweets.count);
+    
+    [self.tweetsTableView reloadData];
+}
+
+
+#pragma TweetTableViewCell methods
+
+- (void)updateFromTweetTableViewCell:(TweetTableViewCell *)cell update:(Tweet *)tweet index:(NSInteger)index
+{
+    NSLog(@"update from tweet table view cell: %d %@", index, tweet);
     
     [self.tweetsTableView reloadData];
 }

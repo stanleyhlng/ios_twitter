@@ -9,7 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "Tweet.h"
 
+@class TweetTableViewCell;
+
+@protocol TweetTableViewCellDelegate <NSObject>
+- (void)updateFromTweetTableViewCell:(TweetTableViewCell *)cell update:(Tweet *)tweet index:(NSInteger)index;
+@end
+
 @interface TweetTableViewCell : UITableViewCell
+@property (nonatomic, weak) id <TweetTableViewCellDelegate> delegate;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *retweetedViewHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *retweetedViewMarginTopConstraint;
 @property (weak, nonatomic) IBOutlet UIButton *replyButton;

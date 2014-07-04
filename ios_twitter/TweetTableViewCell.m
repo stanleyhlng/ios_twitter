@@ -80,16 +80,57 @@
 - (void)handleFavorite
 {
     NSLog(@"handle favorite");
+    
+    Tweet *tweet = self.tweet;
+    if (tweet.retweetedStatus != nil) {
+        tweet = tweet.retweetedStatus;
+    }
+    
+    if ([tweet.favorited intValue] == 0) {
+        // FAVORITE
+        int count = [tweet.favoriteCount intValue] + 1;
+        tweet.favoriteCount = [NSNumber numberWithInt:count];
+        tweet.favorited = [NSNumber numberWithInt:1];
+    }
+    else {
+        // UNFAVORITE
+        int count = [tweet.favoriteCount intValue] - 1;
+        tweet.favoriteCount = [NSNumber numberWithInt:count];
+        tweet.favorited = [NSNumber numberWithInt:0];
+    }
+    
+    [self.delegate updateFromTweetTableViewCell:self update:tweet index:self.index];
 }
 
 - (void)handleReply
 {
     NSLog(@"handle reply");
+    [self.delegate updateFromTweetTableViewCell:self update:self.tweet index:self.index];
 }
 
 - (void)handleRetweet
 {
     NSLog(@"handle retweet");
+
+    Tweet *tweet = self.tweet;
+    if (tweet.retweetedStatus != nil) {
+        tweet = tweet.retweetedStatus;
+    }
+    
+    if ([tweet.retweeted intValue] == 0) {
+        // RETWEET
+        int count = [tweet.retweetCount intValue] + 1;
+        tweet.retweetCount = [NSNumber numberWithInt:count];
+        tweet.retweeted = [NSNumber numberWithInt:1];
+    }
+    else {
+        // UNRETWEET
+        int count = [tweet.retweetCount intValue] - 1;
+        tweet.retweetCount = [NSNumber numberWithInt:count];
+        tweet.retweeted = [NSNumber numberWithInt:0];
+    }
+    
+    [self.delegate updateFromTweetTableViewCell:self update:self.tweet index:self.index];
 }
 
 - (void)setupFavoriteButton
