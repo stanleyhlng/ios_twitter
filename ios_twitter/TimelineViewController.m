@@ -50,7 +50,6 @@
 
         self.tweets = [[NSMutableArray alloc] initWithCapacity:0];
 
-        /*
         [self getTimelineWithParams:nil success:^(NSArray *tweets) {
             
             self.tweets = [tweets mutableCopy];
@@ -59,7 +58,6 @@
             [self.tweetsTableView reloadData];
             
         } failure:nil];
-        */
 
     }
     return self;
@@ -225,8 +223,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    //return self.tweets.count;
-    return 2;
+    return self.tweets.count;
 }
 
 - (void)configureCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -234,43 +231,20 @@
     if ([cell isKindOfClass:[TweetTableViewCell class]])
     {
         TweetTableViewCell *c = (TweetTableViewCell *)cell;
-        UIImage *image;
         
         //c.retweetedView.hidden = YES;
         //c.retweetedViewHeightConstraint.constant = 0.0f;
         //c.retweetedViewMarginTopConstraint.constant = 5.0f;
-        
-        c.nameLabel.text = @"Yahoo";
-        c.statusTextLabel.text = @"Hello World";
-        c.screenNameLabel.text = @"@YahooSports";
 
-        [c setupTweet];
+        if (indexPath.row %2 == 0) {
+            c.statusTextLabel.text = @"HELLO HELLO HELLO HELLO HELLO HELLO";
+        }
+        else {
+            c.statusTextLabel.text = @"HELLO HELLO";
+        }
         
-        // retweeted image view
-        /*
-        image = [UIImage imageNamed:@"icon-retweet"];
-        image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-        c.retweetedImageView.image = image;
-        c.retweetedImageView.tintColor = [UIColor lightGrayColor];
-        */
-         
-        // reply button
-        image = [UIImage imageNamed:@"icon-reply"];
-        image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-        [c.replyButton setImage:image forState:UIControlStateNormal];
-        c.replyButton.tintColor = [UIColor lightGrayColor];
-
-        // retweet button
-        image = [UIImage imageNamed:@"icon-retweet"];
-        image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-        [c.retweetButton setImage:image forState:UIControlStateNormal];
-        c.retweetButton.tintColor = [UIColor lightGrayColor];
-        
-        // favorite button
-        image = [UIImage imageNamed:@"icon-favorite"];
-        image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-        [c.favoriteButton setImage:image forState:UIControlStateNormal];
-        c.favoriteButton.tintColor = [UIColor lightGrayColor];
+        c.tweet = self.tweets[indexPath.row];
+        [c configure];
         
         /*
          CustomTableViewCell *textCell = (CustomTableViewCell *)cell;
