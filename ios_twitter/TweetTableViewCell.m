@@ -11,6 +11,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "UIImageView+UIActivityIndicatorForSDWebImage.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import <DateTools.h>
 
 @interface TweetTableViewCell()
 - (void)setupReplyButton;
@@ -18,8 +19,11 @@
 - (void)setupFavoriteButton;
 - (void)setupProfileImageView;
 - (void)setupRetweetImageView;
+- (void)setupDateLabel;
+- (void)setupFavoriteCountLabel;
 - (void)setupNameLabel;
 - (void)setupRetweetLabel;
+- (void)setupRetweetCountLabel;
 - (void)setupScreenNameLabel;
 - (void)setupStatusTextLabel;
 - (void)setupRetweetView;
@@ -52,18 +56,21 @@
         return;
     }
     
-    //[self setupRetweetView];
-    
     [self setupProfileImageView];
     
     [self setupNameLabel];
     [self setupScreenNameLabel];
+    [self setupDateLabel];
     
     [self setupStatusTextLabel];
     
     [self setupReplyButton];
     [self setupRetweetButton];
+    [self setupRetweetCountLabel];
     [self setupFavoriteButton];
+    [self setupFavoriteCountLabel];
+
+    [self setupRetweetView];
 }
 
 - (void)setupReplyButton
@@ -126,13 +133,42 @@
     self.retweetedImageView.tintColor = [UIColor lightGrayColor];
 }
 
-- (void)setupNameLabel;
+- (void)setupDateLabel
+{
+    NSDateFormatter *frm = [[NSDateFormatter alloc] init];
+    [frm setDateStyle:NSDateFormatterLongStyle];
+    [frm setFormatterBehavior:NSDateFormatterBehavior10_4];
+    [frm setDateFormat: @"EEE MMM dd HH:mm:ss Z yyyy"];
+    NSDate *createdDate = [frm dateFromString:self.tweet.createdAt];
+    //NSLog(@"oldDate:%@", self.tweet.createdAt);
+    //NSLog(@"newDate:%@", createdDate);
+
+    NSDate *timeAgoDate = createdDate;
+    
+    self.dateLabel.font = [UIFont systemFontOfSize:13.0f];
+    self.dateLabel.text = [NSString stringWithFormat:@"%@", timeAgoDate.shortTimeAgoSinceNow];
+}
+
+- (void)setupFavoriteCountLabel
+{
+    NSNumber *count = self.tweet.favoriteCount;
+    if (self.tweet.retweetedStatus != nil) {
+        count = self.tweet.retweetedStatus.favoriteCount;
+    }
+    
+    self.favoriteCountLabel.font = [UIFont systemFontOfSize:13.0f];
+    self.favoriteCountLabel.text = [count stringValue];
+}
+
+- (void)setupNameLabel
 {
     User *user = self.tweet.user;
     if (self.tweet.retweetedStatus != nil) {
         user = self.tweet.retweetedStatus.user;
     }
     
+    self.nameLabel.font = [UIFont boldSystemFontOfSize:14.0f];
+
     self.nameLabel.text = user.name;
 }
 
@@ -143,6 +179,17 @@
     self.retweetLabel.textColor = [UIColor lightGrayColor];
 }
 
+- (void)setupRetweetCountLabel
+{
+    NSNumber *count = self.tweet.retweetCount;
+    if (self.tweet.retweetedStatus != nil) {
+        count = self.tweet.retweetedStatus.retweetCount;
+    }
+    
+    self.retweetCountLabel.font = [UIFont systemFontOfSize:13.0f];
+    self.retweetCountLabel.text = [count stringValue];
+}
+
 - (void)setupScreenNameLabel
 {
     User *user = self.tweet.user;
@@ -150,6 +197,7 @@
         user = self.tweet.retweetedStatus.user;
     }
     
+    self.screenNameLabel.font = [UIFont systemFontOfSize:13.0f];
     self.screenNameLabel.text = [@"@" stringByAppendingString:user.screenName];
 }
 
@@ -159,7 +207,8 @@
     if (self.tweet.retweetedStatus != nil) {
         text = self.tweet.retweetedStatus.text;
     }
-    
+ 
+    self.statusTextLabel.font = [UIFont systemFontOfSize:14.0f];
     self.statusTextLabel.text = text;
 }
 

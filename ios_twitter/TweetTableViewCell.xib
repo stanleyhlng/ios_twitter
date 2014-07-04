@@ -217,11 +217,14 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="dateLabel" destination="DaP-RG-yZS" id="AT8-MD-FVg"/>
                 <outlet property="favoriteButton" destination="NW8-uP-3qX" id="cdu-Cs-hT5"/>
+                <outlet property="favoriteCountLabel" destination="YBj-Fv-Tgr" id="x2I-tj-Z49"/>
                 <outlet property="nameLabel" destination="5Qv-aW-Nde" id="LBk-MC-qDH"/>
                 <outlet property="profileImageView" destination="jeI-ox-f1Z" id="qlf-J6-0Op"/>
                 <outlet property="replyButton" destination="GqW-tU-7UH" id="fqO-gd-Ic6"/>
                 <outlet property="retweetButton" destination="57t-Er-beS" id="TnO-rd-eYA"/>
+                <outlet property="retweetCountLabel" destination="cp9-lm-1v0" id="f5v-DM-5ep"/>
                 <outlet property="retweetLabel" destination="Bs5-p0-q0n" id="qQd-4o-IXN"/>
                 <outlet property="retweetedImageView" destination="Yhj-Yd-mSN" id="YYo-cb-k9H"/>
                 <outlet property="retweetedView" destination="cwR-wK-maS" id="u0T-3V-2Wh"/>
