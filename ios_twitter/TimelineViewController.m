@@ -234,8 +234,43 @@
     if ([cell isKindOfClass:[TweetTableViewCell class]])
     {
         TweetTableViewCell *c = (TweetTableViewCell *)cell;
+        UIImage *image;
+        
+        //c.retweetedView.hidden = YES;
+        //c.retweetedViewHeightConstraint.constant = 0.0f;
+        //c.retweetedViewMarginTopConstraint.constant = 5.0f;
+        
+        c.nameLabel.text = @"Yahoo";
         c.statusTextLabel.text = @"Hello World";
-        c.screenNameLabel.text = @"Yahoo";
+        c.screenNameLabel.text = @"@YahooSports";
+
+        [c setupTweet];
+        
+        // retweeted image view
+        /*
+        image = [UIImage imageNamed:@"icon-retweet"];
+        image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        c.retweetedImageView.image = image;
+        c.retweetedImageView.tintColor = [UIColor lightGrayColor];
+        */
+         
+        // reply button
+        image = [UIImage imageNamed:@"icon-reply"];
+        image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        [c.replyButton setImage:image forState:UIControlStateNormal];
+        c.replyButton.tintColor = [UIColor lightGrayColor];
+
+        // retweet button
+        image = [UIImage imageNamed:@"icon-retweet"];
+        image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        [c.retweetButton setImage:image forState:UIControlStateNormal];
+        c.retweetButton.tintColor = [UIColor lightGrayColor];
+        
+        // favorite button
+        image = [UIImage imageNamed:@"icon-favorite"];
+        image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        [c.favoriteButton setImage:image forState:UIControlStateNormal];
+        c.favoriteButton.tintColor = [UIColor lightGrayColor];
         
         /*
          CustomTableViewCell *textCell = (CustomTableViewCell *)cell;
@@ -282,9 +317,8 @@
     [self.prototypeCell layoutIfNeeded];
 
     CGSize size = [self.prototypeCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-    NSLog(@"size: %f %f", size.width, size.height);
-    //return size.height + 1;
-    return 150;
+
+    return size.height + 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath

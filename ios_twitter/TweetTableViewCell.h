@@ -9,8 +9,15 @@
 #import <UIKit/UIKit.h>
 
 @interface TweetTableViewCell : UITableViewCell
-
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *retweetedViewHeightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *retweetedViewMarginTopConstraint;
+@property (weak, nonatomic) IBOutlet UIButton *replyButton;
+@property (weak, nonatomic) IBOutlet UIButton *retweetButton;
+@property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
+@property (weak, nonatomic) IBOutlet UIImageView *retweetedImageView;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *screenNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *statusTextLabel;
-
+@property (weak, nonatomic) IBOutlet UIView *retweetedView;
+- (void)setupTweet;
 @end

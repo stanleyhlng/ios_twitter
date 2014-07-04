@@ -93,7 +93,7 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GqW-tU-7UH">
-                                                        <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                                                        <rect key="frame" x="0.0" y="1" width="20" height="20"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <inset key="contentEdgeInsets" minX="1" minY="1" maxX="1" maxY="1"/>
                                                         <state key="normal" image="icon-reply">
@@ -130,9 +130,9 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NW8-uP-3qX">
-                                                        <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                                                        <rect key="frame" x="0.0" y="1" width="20" height="20"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <inset key="contentEdgeInsets" minX="2" minY="2" maxX="2" maxY="2"/>
+                                                        <inset key="contentEdgeInsets" minX="2" minY="0.0" maxX="2" maxY="4"/>
                                                         <state key="normal" image="icon-favorite">
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
@@ -190,7 +190,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icon-retweet" translatesAutoresizingMaskIntoConstraints="NO" id="Yhj-Yd-mSN">
-                                <rect key="frame" x="30" y="0.0" width="20" height="20"/>
+                                <rect key="frame" x="32" y="1" width="18" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Yahoo retweeted" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bs5-p0-q0n">
@@ -216,6 +216,18 @@
                     <constraint firstItem="cwR-wK-maS" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="pjH-Xa-FPG"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="favoriteButton" destination="NW8-uP-3qX" id="cdu-Cs-hT5"/>
+                <outlet property="nameLabel" destination="5Qv-aW-Nde" id="LBk-MC-qDH"/>
+                <outlet property="replyButton" destination="GqW-tU-7UH" id="fqO-gd-Ic6"/>
+                <outlet property="retweetButton" destination="57t-Er-beS" id="TnO-rd-eYA"/>
+                <outlet property="retweetedImageView" destination="Yhj-Yd-mSN" id="YYo-cb-k9H"/>
+                <outlet property="retweetedView" destination="cwR-wK-maS" id="u0T-3V-2Wh"/>
+                <outlet property="retweetedViewHeightConstraint" destination="pTR-DV-8NY" id="EAK-YP-uwW"/>
+                <outlet property="retweetedViewMarginTopConstraint" destination="72c-3g-kIk" id="GZB-Hz-Dx2"/>
+                <outlet property="screenNameLabel" destination="R4S-bS-2i4" id="Kuk-CV-E7r"/>
+                <outlet property="statusTextLabel" destination="MiZ-r7-Sq2" id="qEt-Uw-Dn1"/>
+            </connections>
         </tableViewCell>
     </objects>
     <resources>

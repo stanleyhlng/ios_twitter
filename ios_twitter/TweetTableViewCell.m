@@ -29,4 +29,14 @@
     self.statusTextLabel.preferredMaxLayoutWidth = CGRectGetWidth(self.statusTextLabel.frame);
 }
 
+- (void)setupTweet
+{
+    UIImage *image;
+    
+    image = [UIImage imageNamed:@"icon-retweet"];
+    image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    self.retweetedImageView.image = image;
+    self.retweetedImageView.tintColor = [UIColor redColor];
+}
+
 @end
