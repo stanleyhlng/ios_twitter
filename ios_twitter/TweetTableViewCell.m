@@ -15,7 +15,9 @@
 #import "AVHexColor.h"
 
 @interface TweetTableViewCell()
+- (void)handleFavorite;
 - (void)handleReply;
+- (void)handleRetweet;
 - (void)setupReplyButton;
 - (void)setupRetweetButton;
 - (void)setupFavoriteButton;
@@ -75,10 +77,39 @@
     [self setupRetweetView];
 }
 
+- (void)handleFavorite
+{
+    NSLog(@"handle favorite");
+}
+
 - (void)handleReply
 {
     NSLog(@"handle reply");
-    NSLog(@"tweet: %@", self.tweet);
+}
+
+- (void)handleRetweet
+{
+    NSLog(@"handle retweet");
+}
+
+- (void)setupFavoriteButton
+{
+    Tweet *tweet = self.tweet;
+    if (tweet.retweetedStatus != nil) {
+        tweet = tweet.retweetedStatus;
+    }
+    
+    UIColor *color = [UIColor lightGrayColor];
+    if ([tweet.favorited intValue] == 1) {
+        color = [AVHexColor colorWithHexString:@"#FFAC33"];
+    }
+    
+    UIImage *image = [UIImage imageNamed:@"icon-favorite"];
+    image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    [self.favoriteButton setImage:image forState:UIControlStateNormal];
+    self.favoriteButton.tintColor = color;
+    
+    [self.favoriteButton addTarget:self action:@selector(handleFavorite) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)setupReplyButton
@@ -107,24 +138,8 @@
     image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     [self.retweetButton setImage:image forState:UIControlStateNormal];
     self.retweetButton.tintColor = color;
-}
-
-- (void)setupFavoriteButton
-{
-    Tweet *tweet = self.tweet;
-    if (tweet.retweetedStatus != nil) {
-        tweet = tweet.retweetedStatus;
-    }
-
-    UIColor *color = [UIColor lightGrayColor];
-    if ([tweet.favorited intValue] == 1) {
-        color = [AVHexColor colorWithHexString:@"#FFAC33"];
-    }
     
-    UIImage *image = [UIImage imageNamed:@"icon-favorite"];
-    image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    [self.favoriteButton setImage:image forState:UIControlStateNormal];
-    self.favoriteButton.tintColor = color;
+    [self.retweetButton addTarget:self action:@selector(handleRetweet) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)setupProfileImageView
