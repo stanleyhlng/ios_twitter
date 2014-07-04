@@ -25,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *screenNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *statusTextLabel;
 @property (weak, nonatomic) IBOutlet UIView *retweetedView;
+@property (assign, atomic) NSInteger index;
 @property (strong, atomic) Tweet* tweet;
 - (void)configure;
 @end

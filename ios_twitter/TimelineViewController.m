@@ -243,6 +243,7 @@
             c.statusTextLabel.text = @"HELLO HELLO";
         }
         
+        c.index = indexPath.row;
         c.tweet = self.tweets[indexPath.row];
         [c configure];
         
