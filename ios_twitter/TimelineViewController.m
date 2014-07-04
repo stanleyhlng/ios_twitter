@@ -282,6 +282,7 @@
     [self.prototypeCell layoutIfNeeded];
 
     CGSize size = [self.prototypeCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    NSLog(@"size: %f %f", size.width, size.height);
     //return size.height + 1;
     return 150;
 }
