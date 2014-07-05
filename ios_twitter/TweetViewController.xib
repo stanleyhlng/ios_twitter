@@ -8,9 +8,12 @@
             <connections>
                 <outlet property="contentView" destination="xD3-ZY-qWb" id="UV2-B6-jw8"/>
                 <outlet property="dateLabel" destination="xc8-tW-re7" id="wzd-Ls-Cwr"/>
+                <outlet property="favoriteButton" destination="iA9-yA-3kf" id="tPR-eB-vpk"/>
                 <outlet property="favoriteCountLabel" destination="R5K-kZ-2f4" id="J1G-L3-zCx"/>
                 <outlet property="nameLabel" destination="8qx-AS-FmY" id="kSj-BW-JxJ"/>
                 <outlet property="profileImageView" destination="KWu-uN-axV" id="6WP-7F-HrI"/>
+                <outlet property="replyButton" destination="R5m-8p-xE0" id="gVZ-ag-VXV"/>
+                <outlet property="retweetButton" destination="gJa-Y6-1zv" id="57U-53-6pk"/>
                 <outlet property="retweetCountLabel" destination="Tj1-KA-BYq" id="XG2-6p-O5c"/>
                 <outlet property="screenNameLabel" destination="uwj-4L-hZ7" id="qVa-rw-w4m"/>
                 <outlet property="scrollView" destination="f78-ZE-FS6" id="ba0-oZ-fEO"/>

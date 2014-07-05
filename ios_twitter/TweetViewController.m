@@ -18,8 +18,9 @@
 
 @interface TweetViewController ()
 
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (weak, nonatomic) IBOutlet UIView *contentView;
+@property (weak, nonatomic) IBOutlet UIButton *replyButton;
+@property (weak, nonatomic) IBOutlet UIButton *retweetButton;
+@property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
 @property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -28,6 +29,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *retweetCountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *favoriteCountLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *statusTextHeightConstraint;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UIView *contentView;
 
 - (void)configure;
 - (void)customizeRightBarButton;
@@ -47,6 +50,9 @@
 - (void)destroyStatusWithParams:(NSMutableDictionary *)params
                         success:(void(^)(Tweet *tweet))success
                         failure:(void(^)(NSError *error))failure;
+- (void)setupReplyButton;
+- (void)setupRetweetButton;
+- (void)setupFavoriteButton;
 - (void)setupProfileImageView;
 - (void)setupDateLabel;
 - (void)setupFavoriteCountLabel;
@@ -106,7 +112,7 @@
     [self setupRetweetCountLabel];
     [self setupFavoriteCountLabel];
 
-//    [self setupReplyButton];
+    [self setupReplyButton];
 //    [self setupRetweetButton];
 //    [self setupFavoriteButton];
 //
@@ -264,6 +270,16 @@
                                                       failure(error);
                                                   }
                                               }];
+}
+
+- (void)setupReplyButton
+{
+    UIImage *image = [UIImage imageNamed:@"icon-reply"];
+    image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    [self.replyButton setImage:image forState:UIControlStateNormal];
+    self.replyButton.tintColor = [UIColor lightGrayColor];
+    
+    [self.replyButton addTarget:self action:@selector(handleReply) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)setupDateLabel
