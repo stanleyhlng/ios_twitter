@@ -21,9 +21,12 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *screenNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *statusTextLabel;
+@property (weak, nonatomic) IBOutlet UILabel *retweetCountLabel;
+@property (weak, nonatomic) IBOutlet UILabel *favoriteCountLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *statusTextHeightConstraint;
 
 - (void)configure;
@@ -45,7 +48,10 @@
                         success:(void(^)(Tweet *tweet))success
                         failure:(void(^)(NSError *error))failure;
 - (void)setupProfileImageView;
+- (void)setupDateLabel;
+- (void)setupFavoriteCountLabel;
 - (void)setupNameLabel;
+- (void)setupRetweetCountLabel;
 - (void)setupScreenNameLabel;
 - (void)setupStatusTextLabel;
 @end
@@ -92,16 +98,18 @@
     [self setupProfileImageView];
     [self setupNameLabel];
     [self setupScreenNameLabel];
-//    [self setupDateLabel];
-//    
+
     [self setupStatusTextLabel];
-//    
+
+    [self setupDateLabel];
+
+    [self setupRetweetCountLabel];
+    [self setupFavoriteCountLabel];
+
 //    [self setupReplyButton];
 //    [self setupRetweetButton];
-//    [self setupRetweetCountLabel];
 //    [self setupFavoriteButton];
-//    [self setupFavoriteCountLabel];
-//    
+//
 //    [self setupRetweetView];
 }
 
@@ -258,6 +266,19 @@
                                               }];
 }
 
+- (void)setupDateLabel
+{
+    NSDateFormatter *frm = [[NSDateFormatter alloc] init];
+    [frm setDateStyle:NSDateFormatterLongStyle];
+    [frm setFormatterBehavior:NSDateFormatterBehavior10_4];
+    [frm setDateFormat: @"EEE MMM dd HH:mm:ss Z yyyy"];
+    NSDate *createdDate = [frm dateFromString:self.tweet.createdAt];
+    
+    self.dateLabel.font = [UIFont systemFontOfSize:13.0f];
+    self.dateLabel.textColor = [UIColor lightGrayColor];
+    self.dateLabel.text = [createdDate formattedDateWithFormat:@"MM/dd/yyyy hh:mm a"];
+}
+
 - (void)setupProfileImageView
 {
     User *user = self.tweet.user;
@@ -286,6 +307,18 @@
                usingActivityIndicatorStyle:(UIActivityIndicatorViewStyleGray)];
 }
 
+- (void)setupFavoriteCountLabel
+{
+    Tweet *tweet = self.tweet;
+    if (tweet.retweetedStatus != nil) {
+        tweet = tweet.retweetedStatus;
+    }
+    
+    NSNumber *count = tweet.favoriteCount;
+    self.favoriteCountLabel.font = [UIFont boldSystemFontOfSize:13.0f];
+    self.favoriteCountLabel.text = [count stringValue];
+}
+
 - (void)setupNameLabel
 {
     User *user = self.tweet.user;
@@ -295,6 +328,19 @@
     
     self.nameLabel.font = [UIFont boldSystemFontOfSize:14.0f];
     self.nameLabel.text = user.name;
+}
+
+- (void)setupRetweetCountLabel
+{
+    Tweet *tweet = self.tweet;
+    if (tweet.retweetedStatus != nil) {
+        tweet = tweet.retweetedStatus;
+    }
+    
+    NSNumber *count = tweet.retweetCount;
+    
+    self.retweetCountLabel.font = [UIFont boldSystemFontOfSize:13.0f];
+    self.retweetCountLabel.text = [count stringValue];
 }
 
 - (void)setupScreenNameLabel
