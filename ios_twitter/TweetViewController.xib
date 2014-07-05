@@ -15,9 +15,14 @@
                 <outlet property="replyButton" destination="R5m-8p-xE0" id="gVZ-ag-VXV"/>
                 <outlet property="retweetButton" destination="gJa-Y6-1zv" id="57U-53-6pk"/>
                 <outlet property="retweetCountLabel" destination="Tj1-KA-BYq" id="XG2-6p-O5c"/>
+                <outlet property="retweetedImageView" destination="sSP-gv-ccN" id="slY-vK-Mj0"/>
+                <outlet property="retweetedLabel" destination="9ax-Zy-rt6" id="fps-cZ-XVq"/>
+                <outlet property="retweetedView" destination="Arv-qz-adV" id="3tV-q1-7FI"/>
+                <outlet property="retweetedViewHeightConstraint" destination="csA-vk-82K" id="qQH-iI-luj"/>
+                <outlet property="retweetedViewMarginTopConstraint" destination="Utm-t2-hou" id="owA-Bc-kMp"/>
                 <outlet property="screenNameLabel" destination="uwj-4L-hZ7" id="qVa-rw-w4m"/>
                 <outlet property="scrollView" destination="f78-ZE-FS6" id="ba0-oZ-fEO"/>
-                <outlet property="statusTextHeightConstraint" destination="ubo-5l-SLu" id="pJd-35-OV8"/>
+                <outlet property="statusTextHeightConstraint" destination="ubo-5l-SLu" id="5Vc-kO-EE4"/>
                 <outlet property="statusTextLabel" destination="58m-jR-zk8" id="ywu-w7-CaG"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>

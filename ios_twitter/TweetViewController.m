@@ -22,15 +22,20 @@
 @property (weak, nonatomic) IBOutlet UIButton *retweetButton;
 @property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
 @property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *retweetedImageView;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+@property (weak, nonatomic) IBOutlet UILabel *favoriteCountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *screenNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *statusTextLabel;
 @property (weak, nonatomic) IBOutlet UILabel *retweetCountLabel;
-@property (weak, nonatomic) IBOutlet UILabel *favoriteCountLabel;
+@property (weak, nonatomic) IBOutlet UILabel *retweetedLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *retweetedViewMarginTopConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *retweetedViewHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *statusTextHeightConstraint;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
+@property (weak, nonatomic) IBOutlet UIView *retweetedView;
 
 - (void)configure;
 - (void)customizeRightBarButton;
@@ -54,12 +59,14 @@
 - (void)setupRetweetButton;
 - (void)setupFavoriteButton;
 - (void)setupProfileImageView;
+- (void)setupRetweetImageView;
 - (void)setupDateLabel;
 - (void)setupFavoriteCountLabel;
 - (void)setupNameLabel;
 - (void)setupRetweetCountLabel;
 - (void)setupScreenNameLabel;
 - (void)setupStatusTextLabel;
+- (void)setupRetweetView;
 @end
 
 @implementation TweetViewController
@@ -113,10 +120,10 @@
     [self setupFavoriteCountLabel];
 
     [self setupReplyButton];
-//    [self setupRetweetButton];
-//    [self setupFavoriteButton];
-//
-//    [self setupRetweetView];
+    [self setupRetweetButton];
+    [self setupFavoriteButton];
+
+    [self setupRetweetView];
 }
 
 - (void)customizeRightBarButton
@@ -272,6 +279,26 @@
                                               }];
 }
 
+- (void)setupFavoriteButton
+{
+    Tweet *tweet = self.tweet;
+    if (tweet.retweetedStatus != nil) {
+        tweet = tweet.retweetedStatus;
+    }
+    
+    UIColor *color = [UIColor lightGrayColor];
+    if ([tweet.favorited intValue] == 1) {
+        color = [AVHexColor colorWithHexString:@"#FFAC33"];
+    }
+    
+    UIImage *image = [UIImage imageNamed:@"icon-favorite"];
+    image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    [self.favoriteButton setImage:image forState:UIControlStateNormal];
+    self.favoriteButton.tintColor = color;
+    
+    [self.favoriteButton addTarget:self action:@selector(handleFavorite) forControlEvents:UIControlEventTouchUpInside];
+}
+
 - (void)setupReplyButton
 {
     UIImage *image = [UIImage imageNamed:@"icon-reply"];
@@ -280,6 +307,34 @@
     self.replyButton.tintColor = [UIColor lightGrayColor];
     
     [self.replyButton addTarget:self action:@selector(handleReply) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)setupRetweetButton
+{
+    Tweet *tweet = self.tweet;
+    if (tweet.retweetedStatus != nil) {
+        tweet = tweet.retweetedStatus;
+    }
+    
+    UIColor *color = [UIColor lightGrayColor];
+    if ([tweet.retweeted intValue] == 1) {
+        color = [AVHexColor colorWithHexString:@"#5C9138"];
+    }
+    
+    UIImage *image = [UIImage imageNamed:@"icon-retweet"];
+    image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    [self.retweetButton setImage:image forState:UIControlStateNormal];
+    self.retweetButton.tintColor = color;
+    
+    [self.retweetButton addTarget:self action:@selector(handleRetweet) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)setupRetweetImageView
+{
+    UIImage *image = [UIImage imageNamed:@"icon-retweet"];
+    image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    self.retweetedImageView.image = image;
+    self.retweetedImageView.tintColor = [UIColor lightGrayColor];
 }
 
 - (void)setupDateLabel
@@ -346,6 +401,15 @@
     self.nameLabel.text = user.name;
 }
 
+- (void)setupRetweetLabel
+{
+    User *user = self.tweet.user;
+    
+    self.retweetedLabel.font = [UIFont systemFontOfSize:13.0f];
+    self.retweetedLabel.text = [user.name stringByAppendingString:@" retweeted"];
+    self.retweetedLabel.textColor = [UIColor lightGrayColor];
+}
+
 - (void)setupRetweetCountLabel
 {
     Tweet *tweet = self.tweet;
@@ -388,6 +452,21 @@
     NSLog(@"status text: %f %f", frame.size.width, frame.size.height);
     
     self.statusTextHeightConstraint.constant = frame.size.height;
+}
+
+- (void)setupRetweetView
+{
+    if (self.tweet.retweetedStatus != nil) {
+        // RETWEETED STATUS
+        [self setupRetweetImageView];
+        [self setupRetweetLabel];
+    }
+    else {
+        // RETWEETED STATUS
+        self.retweetedView.hidden = YES;
+        self.retweetedViewHeightConstraint.constant = 0.0f;
+        self.retweetedViewMarginTopConstraint.constant = 5.0f;
+    }
 }
 
 
