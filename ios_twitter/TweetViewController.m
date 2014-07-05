@@ -21,6 +21,8 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *screenNameLabel;
 
 - (void)configure;
 - (void)customizeRightBarButton;
@@ -41,6 +43,8 @@
                         success:(void(^)(Tweet *tweet))success
                         failure:(void(^)(NSError *error))failure;
 - (void)setupProfileImageView;
+- (void)setupNameLabel;
+- (void)setupScreenNameLabel;
 @end
 
 @implementation TweetViewController
@@ -81,6 +85,19 @@
     }
     
     [self setupProfileImageView];
+    [self setupNameLabel];
+    [self setupScreenNameLabel];
+//    [self setupDateLabel];
+//    
+//    [self setupStatusTextLabel];
+//    
+//    [self setupReplyButton];
+//    [self setupRetweetButton];
+//    [self setupRetweetCountLabel];
+//    [self setupFavoriteButton];
+//    [self setupFavoriteCountLabel];
+//    
+//    [self setupRetweetView];
 }
 
 - (void)customizeRightBarButton
@@ -262,6 +279,28 @@
                                      [UIView commitAnimations];
                                  }
                usingActivityIndicatorStyle:(UIActivityIndicatorViewStyleGray)];
+}
+
+- (void)setupNameLabel
+{
+    User *user = self.tweet.user;
+    if (self.tweet.retweetedStatus != nil) {
+        user = self.tweet.retweetedStatus.user;
+    }
+    
+    self.nameLabel.font = [UIFont boldSystemFontOfSize:14.0f];
+    self.nameLabel.text = user.name;
+}
+
+- (void)setupScreenNameLabel
+{
+    User *user = self.tweet.user;
+    if (self.tweet.retweetedStatus != nil) {
+        user = self.tweet.retweetedStatus.user;
+    }
+    
+    self.screenNameLabel.font = [UIFont systemFontOfSize:13.0f];
+    self.screenNameLabel.text = [@"@" stringByAppendingString:user.screenName];
 }
 
 

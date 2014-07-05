@@ -262,7 +262,6 @@
     }
     
     self.nameLabel.font = [UIFont boldSystemFontOfSize:14.0f];
-
     self.nameLabel.text = user.name;
 }
 

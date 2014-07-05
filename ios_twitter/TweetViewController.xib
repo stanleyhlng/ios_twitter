@@ -7,7 +7,9 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TweetViewController">
             <connections>
                 <outlet property="contentView" destination="xD3-ZY-qWb" id="UV2-B6-jw8"/>
+                <outlet property="nameLabel" destination="8qx-AS-FmY" id="kSj-BW-JxJ"/>
                 <outlet property="profileImageView" destination="KWu-uN-axV" id="6WP-7F-HrI"/>
+                <outlet property="screenNameLabel" destination="uwj-4L-hZ7" id="qVa-rw-w4m"/>
                 <outlet property="scrollView" destination="f78-ZE-FS6" id="ba0-oZ-fEO"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
