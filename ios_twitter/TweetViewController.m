@@ -23,6 +23,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *screenNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *statusTextLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *statusTextHeightConstraint;
 
 - (void)configure;
 - (void)customizeRightBarButton;
@@ -45,6 +47,7 @@
 - (void)setupProfileImageView;
 - (void)setupNameLabel;
 - (void)setupScreenNameLabel;
+- (void)setupStatusTextLabel;
 @end
 
 @implementation TweetViewController
@@ -76,6 +79,8 @@
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     CGSize rect = self.scrollView.frame.size;
     NSLog(@"scrollview: did rotate w%f h%f", rect.width, rect.height);
+    
+    [self configure];
 }
 
 - (void)configure
@@ -89,7 +94,7 @@
     [self setupScreenNameLabel];
 //    [self setupDateLabel];
 //    
-//    [self setupStatusTextLabel];
+    [self setupStatusTextLabel];
 //    
 //    [self setupReplyButton];
 //    [self setupRetweetButton];
@@ -301,6 +306,26 @@
     
     self.screenNameLabel.font = [UIFont systemFontOfSize:13.0f];
     self.screenNameLabel.text = [@"@" stringByAppendingString:user.screenName];
+}
+
+- (void)setupStatusTextLabel
+{
+    NSString *text = self.tweet.text;
+    if (self.tweet.retweetedStatus != nil) {
+        text = self.tweet.retweetedStatus.text;
+    }
+    
+    self.statusTextLabel.font = [UIFont systemFontOfSize:14.0f];
+    self.statusTextLabel.text = text;
+
+    CGRect frame;
+    frame = self.statusTextLabel.frame;
+    NSLog(@"status text: %f %f", frame.size.width, frame.size.height);
+    [self.statusTextLabel sizeToFit];
+    frame = self.statusTextLabel.frame;
+    NSLog(@"status text: %f %f", frame.size.width, frame.size.height);
+    
+    self.statusTextHeightConstraint.constant = frame.size.height;
 }
 
 

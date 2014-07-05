@@ -11,6 +11,8 @@
                 <outlet property="profileImageView" destination="KWu-uN-axV" id="6WP-7F-HrI"/>
                 <outlet property="screenNameLabel" destination="uwj-4L-hZ7" id="qVa-rw-w4m"/>
                 <outlet property="scrollView" destination="f78-ZE-FS6" id="ba0-oZ-fEO"/>
+                <outlet property="statusTextHeightConstraint" destination="ubo-5l-SLu" id="pJd-35-OV8"/>
+                <outlet property="statusTextLabel" destination="58m-jR-zk8" id="ywu-w7-CaG"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
