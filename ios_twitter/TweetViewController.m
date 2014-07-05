@@ -9,19 +9,22 @@
 #import "TweetViewController.h"
 #import "ComposeViewController.h"
 #import "TwitterClient.h"
+#import "User.h"
+#import "UIImageView+AFNetworking.h"
+#import "UIImageView+UIActivityIndicatorForSDWebImage.h"
+#import <SDWebImage/UIImageView+WebCache.h>
+#import <DateTools.h>
+#import "AVHexColor.h"
 
 @interface TweetViewController ()
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentVIewMarginLeftConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentVIewMarginBottomConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentVIewMarginRightConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentVIewMarginTopConstraint;
-
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
+@property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
+
+- (void)configure;
 - (void)customizeRightBarButton;
 - (void)customizeTitleView;
-- (void)setupTweet;
 - (void)handleFavorite;
 - (void)handleReply;
 - (void)handleRetweet;
@@ -32,11 +35,12 @@
                         success:(void(^)(Tweet *tweet))success
                         failure:(void(^)(NSError *error))failure;
 - (void)retweetStatusWithParams:(NSMutableDictionary *)params
-                       success:(void(^)(Tweet *tweet))success
-                       failure:(void(^)(NSError *error))failure;
+                        success:(void(^)(Tweet *tweet))success
+                        failure:(void(^)(NSError *error))failure;
 - (void)destroyStatusWithParams:(NSMutableDictionary *)params
-                         success:(void(^)(Tweet *tweet))success
-                         failure:(void(^)(NSError *error))failure;
+                        success:(void(^)(Tweet *tweet))success
+                        failure:(void(^)(NSError *error))failure;
+- (void)setupProfileImageView;
 @end
 
 @implementation TweetViewController
@@ -56,12 +60,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    //[self setupTweet];
-    
-    self.contentVIewMarginLeftConstraint.constant = 0;
-    self.contentVIewMarginBottomConstraint.constant = 0;
-    self.contentVIewMarginRightConstraint.constant = 0;
-    self.contentVIewMarginTopConstraint.constant = 0;
+    [self configure];
 }
 
 - (void)didReceiveMemoryWarning
@@ -73,6 +72,15 @@
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     CGSize rect = self.scrollView.frame.size;
     NSLog(@"scrollview: did rotate w%f h%f", rect.width, rect.height);
+}
+
+- (void)configure
+{
+    if (self.tweet == nil) {
+        return;
+    }
+    
+    [self setupProfileImageView];
 }
 
 - (void)customizeRightBarButton
@@ -88,11 +96,6 @@
 - (void)customizeTitleView
 {
     self.title = @"Tweet";
-}
-
-- (void)setupTweet
-{
-    NSLog(@"setup tweet: %@", self.tweet);
 }
 
 - (void)handleFavorite
@@ -231,6 +234,34 @@
                                                       failure(error);
                                                   }
                                               }];
+}
+
+- (void)setupProfileImageView
+{
+    User *user = self.tweet.user;
+    if (self.tweet.retweetedStatus != nil) {
+        user = self.tweet.retweetedStatus.user;
+    }
+    
+    NSURL *url = user.profileImageUrl;
+    UIImage *placeholder = [UIImage imageNamed:@"profile"];
+    
+    self.profileImageView.contentMode = UIViewContentModeScaleAspectFill;
+    self.profileImageView.layer.masksToBounds = YES;
+    self.profileImageView.layer.cornerRadius = 5.0f;
+    self.profileImageView.alpha = 0.5f;
+    
+    [self.profileImageView setImageWithURL:url
+                          placeholderImage:placeholder
+                                   options:SDWebImageRefreshCached
+                                 completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+                                     // Fade in image
+                                     [UIView beginAnimations:@"fade in" context:nil];
+                                     [UIView setAnimationDuration:0.5];
+                                     [self.profileImageView setAlpha:1.0f];
+                                     [UIView commitAnimations];
+                                 }
+               usingActivityIndicatorStyle:(UIActivityIndicatorViewStyleGray)];
 }
 
 

@@ -6,11 +6,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TweetViewController">
             <connections>
-                <outlet property="contentVIewMarginBottomConstraint" destination="yGQ-mq-Tox" id="A4V-DU-MlO"/>
-                <outlet property="contentVIewMarginLeftConstraint" destination="ePh-Qw-hpD" id="iFK-gG-5cv"/>
-                <outlet property="contentVIewMarginRightConstraint" destination="x1F-XU-JRV" id="3d0-Gt-xmw"/>
-                <outlet property="contentVIewMarginTopConstraint" destination="vd5-2M-yEs" id="8y6-D3-DRc"/>
                 <outlet property="contentView" destination="xD3-ZY-qWb" id="UV2-B6-jw8"/>
+                <outlet property="profileImageView" destination="KWu-uN-axV" id="6WP-7F-HrI"/>
                 <outlet property="scrollView" destination="f78-ZE-FS6" id="ba0-oZ-fEO"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
