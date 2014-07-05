@@ -23,6 +23,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *screenNameLabel;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
+@property (nonatomic, strong) UIBarButtonItem *countBarButtonItem;
+@property (nonatomic, strong) UIBarButtonItem *tweetBarButtonItem;
+@property (nonatomic, assign) NSInteger countMax;
 
 - (void)configure;
 - (void)customizeLeftBarButton;
@@ -38,6 +41,7 @@
 - (void)setupNameLabel;
 - (void)setupScreenNameLabel;
 - (void)setupStatusTextView;
+- (void)updateStatusTextView;
 
 @end
 
@@ -89,12 +93,23 @@
 
 - (void)customizeRightBarButton
 {
-    UIBarButtonItem *barButtonItem =
-    [[UIBarButtonItem alloc] initWithTitle:@"Tweet"
-                                     style:UIBarButtonItemStyleBordered
-                                    target:self
-                                    action:@selector(handleTweet)];
-    self.navigationItem.rightBarButtonItem = barButtonItem;
+    self.countMax = 140;
+    
+    self.countBarButtonItem =
+        [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"%d", self.countMax]
+                                         style:UIBarButtonItemStylePlain
+                                        target:nil
+                                        action:nil];
+    self.countBarButtonItem.enabled = NO;
+    
+    self.tweetBarButtonItem =
+        [[UIBarButtonItem alloc] initWithTitle:@"Tweet"
+                                         style:UIBarButtonItemStyleBordered
+                                        target:self
+                                        action:@selector(handleTweet)];
+    self.tweetBarButtonItem.enabled = NO;
+    
+    self.navigationItem.rightBarButtonItems = @[self.tweetBarButtonItem, self.countBarButtonItem];
 }
 
 - (void)customizeTitleView
@@ -233,8 +248,35 @@
         namesList = [NSMutableString stringWithFormat:@"%@ ", [names componentsJoinedByString:@" "]];
     }
     
-    self.textView.text = [[NSString alloc] initWithFormat:@"%@%@", namesList, @"Hello World"];
+    self.textView.delegate = self;
+    self.textView.text = [[NSString alloc] initWithFormat:@"%@%@", namesList, @""];
     [self.textView becomeFirstResponder];
+    
+    [self updateStatusTextView];
+}
+
+- (void)updateStatusTextView
+{
+    int countMax = self.countMax;
+    int count = countMax - self.textView.text.length;
+    
+    //NSLog(@"text view did change: %d / %d", count, countMax);
+    self.countBarButtonItem.title = [NSString stringWithFormat:@"%d", count];
+    
+    if (self.textView.text.length > 0) {
+        self.tweetBarButtonItem.enabled = YES;
+    }
+    else {
+        self.tweetBarButtonItem.enabled = NO;
+    }
+}
+
+
+#pragma UITextViewDelegate methods
+
+- (void)textViewDidChange:(UITextView *)textView
+{
+    [self updateStatusTextView];
 }
 
 @end

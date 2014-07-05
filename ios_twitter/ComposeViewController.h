@@ -15,7 +15,7 @@
 - (void)updateFromComposeView:(ComposeViewController *)controller update:(Tweet *)tweet;
 @end
 
-@interface ComposeViewController : UIViewController
+@interface ComposeViewController : UIViewController<UITextViewDelegate>
 @property (nonatomic, weak) id <ComposeViewControllerDelegate> delegate;
 @property(strong, nonatomic) Tweet* tweet;
 @end
