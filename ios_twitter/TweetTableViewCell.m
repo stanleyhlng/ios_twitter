@@ -61,13 +61,13 @@
     }
     
     [self setupProfileImageView];
-    
+
     [self setupNameLabel];
     [self setupScreenNameLabel];
     [self setupDateLabel];
-    
+
     [self setupStatusTextLabel];
-    
+
     [self setupReplyButton];
     [self setupRetweetButton];
     [self setupRetweetCountLabel];
@@ -196,6 +196,9 @@
     self.profileImageView.contentMode = UIViewContentModeScaleAspectFill;
     self.profileImageView.layer.masksToBounds = YES;
     self.profileImageView.layer.cornerRadius = 5.0f;
+
+    [self.profileImageView setImageWithURL:url placeholderImage:placeholder];
+    /*
     self.profileImageView.alpha = 0.5f;
     
     [self.profileImageView setImageWithURL:url
@@ -209,6 +212,7 @@
                                      [UIView commitAnimations];
                                  }
                usingActivityIndicatorStyle:(UIActivityIndicatorViewStyleGray)];
+     */
 }
 
 - (void)setupRetweetImageView

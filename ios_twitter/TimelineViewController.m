@@ -70,6 +70,11 @@
     [self setupTableView];
 }
 
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -125,9 +130,29 @@
     } mutableCopy];
     
     [self getTimelineWithParams:params success:^(NSArray *tweets) {
-        [self.tweets addObjectsFromArray:tweets];
-        NSLog(@"[RELOAD] tweets.count: %d / %d", tweets.count, self.tweets.count);
+
+        NSLog(@"[RELAOD] tweets.count: %d", tweets.count);
+
+        if ((tweets.count == 1 && ![((Tweet *)tweets[0]).id isEqualToNumber:tweet.id]) || tweets.count > 1) {
+        
+            [self.tweets addObjectsFromArray:tweets];
+            NSLog(@"[RELOAD] tweets.count: %d / %d", tweets.count, self.tweets.count);
+        }
+
+        if (tweets.count > 0) {
+            [self.tweetsTableView reloadData];
+        }
+
+        [self.tweetsTableView finishInfiniteScrollWithCompletion:^(UIScrollView *scrollView) {
+            [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(handleLoadMoreDone) userInfo:nil repeats:NO];
+        }];
+        
     } failure:nil];
+}
+
+- (void)handleLoadMoreDone
+{
+    [self.tweetsTableView finishInfiniteScroll];
 }
 
 - (void)handleRefresh
@@ -139,9 +164,10 @@
     [self getTimelineWithParams:nil success:^(NSArray *tweets) {
         self.tweets = [tweets mutableCopy];
         NSLog(@"[REFERSH] tweets.count: %d / %d", tweets.count, self.tweets.count);
+    
+        [self.tweetsTableView reloadData];
+        
     } failure:nil];
-
-    [self.tweetsTableView reloadData];
 }
 
 - (void)handleSignOut
@@ -170,7 +196,7 @@
     
     [[TwitterClient instance] homeTimelineWithParams:params
                                              success:^(AFHTTPRequestOperation *operation, NSArray *tweets) {
-                                                 NSLog(@"success: %@", tweets);
+                                                 //NSLog(@"success: %@", tweets);
                                                  success(tweets);
                                              }
                                              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -193,8 +219,8 @@
     self.tweetsTableView.delegate = self;
     
     [self.tweetsTableView addInfiniteScrollWithHandler:^(UIScrollView *scrollView) {
+        NSLog(@"add infinite scroll with handler");
         [self handleLoadMore];
-        [self.tweetsTableView finishInfiniteScroll];
     }];
     
     // Table View Cell
@@ -207,7 +233,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"cell for row at index path: %d", indexPath.row);
+    //NSLog(@"cell for row at index path: %d", indexPath.row);
     
     /*
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
@@ -232,40 +258,10 @@
     {
         TweetTableViewCell *c = (TweetTableViewCell *)cell;
         
-        //c.retweetedView.hidden = YES;
-        //c.retweetedViewHeightConstraint.constant = 0.0f;
-        //c.retweetedViewMarginTopConstraint.constant = 5.0f;
-
-        if (indexPath.row %2 == 0) {
-            c.statusTextLabel.text = @"HELLO HELLO HELLO HELLO HELLO HELLO";
-        }
-        else {
-            c.statusTextLabel.text = @"HELLO HELLO";
-        }
-        
         c.delegate = self;
         c.index = indexPath.row;
         c.tweet = self.tweets[indexPath.row];
         [c configure];
-        
-        /*
-         CustomTableViewCell *textCell = (CustomTableViewCell *)cell;
-         
-         Article *article_item = _feedItems[indexPath.row];
-         
-         NSString *fulltitle = article_item.Title;
-         
-         //                fulltitle = article_item.Cat_Name; // testing category name
-         
-         if (article_item.Subtitle != nil && article_item.Subtitle.length != 0) {
-         fulltitle = [fulltitle stringByAppendingString:@": "];
-         fulltitle = [fulltitle stringByAppendingString:article_item.Subtitle];
-         }
-         textCell.lineLabel.text = fulltitle;
-         
-         textCell.lineLabel.numberOfLines = 0;
-         textCell.lineLabel.font = [UIFont fontWithName:@"Novecento wide" size:12.0f];
-         */
     }
 }
 
@@ -282,7 +278,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"height for row at index path: %d", indexPath.row);
+    //NSLog(@"height for row at index path: %d", indexPath.row);
     
     if (!self.prototypeCell) {
         self.prototypeCell = [self.tweetsTableView dequeueReusableCellWithIdentifier:@"TweetTableViewCell"];
@@ -297,10 +293,10 @@
     return size.height + 1;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return UITableViewAutomaticDimension;
-}
+//- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    return UITableViewAutomaticDimension;
+//}
 
 
 #pragma ComposeViewControllerDelegate methods

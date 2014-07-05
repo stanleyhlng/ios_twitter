@@ -37,21 +37,23 @@
                                            success:(void(^)(AFHTTPRequestOperation *operation, NSArray *tweets))success
                                            failure:(void(^)(AFHTTPRequestOperation *operation, NSError *error))failure
 {
+    int count = 10;
+    
     if (params == nil) {
         params =
         [@{
-          @"count": [[NSNumber alloc] initWithInt:2]
+          @"count": [[NSNumber alloc] initWithInt:count]
         } mutableCopy];
     }
     else if (params[@"count"] == nil){
-        params[@"count"] = [[NSNumber alloc] initWithInt:2];
+        params[@"count"] = [[NSNumber alloc] initWithInt:count];
     }
     NSLog(@"client: params: %@", params);
     
-    return [self GET:@"1.1/statuses/user_timeline.json"
+    return [self GET:@"1.1/statuses/home_timeline.json"
           parameters:params
              success:^(AFHTTPRequestOperation *operation, id response) {
-                 NSLog(@"success: %@", response);
+                 //NSLog(@"success: %@", response);
                  success(operation, [Tweet parseTweets:response]);
              }
              failure:failure];
@@ -68,7 +70,7 @@
     return [self POST:@"1.1/statuses/update.json"
           parameters:params
              success:^(AFHTTPRequestOperation *operation, id response) {
-                 NSLog(@"success: %@", response);
+                 //NSLog(@"success: %@", response);
                  success(operation, [Tweet parseTweet:response]);
              }
              failure:failure];
@@ -87,7 +89,7 @@
     return [self POST:[NSString stringWithFormat:@"1.1/statuses/retweet/%@.json", params[@"id"]]
            parameters:params
               success:^(AFHTTPRequestOperation *operation, id response) {
-                  NSLog(@"success: %@", response);
+                  //NSLog(@"success: %@", response);
                   success(operation, [Tweet parseTweet:response]);
               }
               failure:failure];
@@ -103,7 +105,7 @@
     return [self POST:[NSString stringWithFormat:@"1.1/statuses/destroy/%@.json", params[@"id"]]
            parameters:params
               success:^(AFHTTPRequestOperation *operation, id response) {
-                  NSLog(@"success: %@", response);
+                  //NSLog(@"success: %@", response);
                   success(operation, [Tweet parseTweet:response]);
               }
               failure:failure];
@@ -122,7 +124,7 @@
     return [self POST:@"1.1/favorites/create.json"
            parameters:params
               success:^(AFHTTPRequestOperation *operation, id response) {
-                  NSLog(@"success: %@", response);
+                  //NSLog(@"success: %@", response);
                   success(operation, [Tweet parseTweet:response]);
               }
               failure:failure];
@@ -138,7 +140,7 @@
     return [self POST:@"1.1/favorites/destroy.json"
            parameters:params
               success:^(AFHTTPRequestOperation *operation, id response) {
-                  NSLog(@"success: %@", response);
+                  //NSLog(@"success: %@", response);
                   success(operation, [Tweet parseTweet:response]);
               }
               failure:failure];
@@ -156,7 +158,7 @@
     return [self GET:@"1.1/account/verify_credentials.json"
           parameters:params
              success:^(AFHTTPRequestOperation *operation, id response) {
-                 NSLog(@"success: %@", response);
+                 //NSLog(@"success: %@", response);
                  success(operation, [User parseUser:response]);
              }
              failure:failure];
