@@ -11,12 +11,20 @@
 #import "User.h"
 #import "TwitterClient.h"
 #import "NSMutableString+AppendPrefix.h"
+#import "UIImageView+AFNetworking.h"
+#import "UIImageView+UIActivityIndicatorForSDWebImage.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 #import "AVHexColor.h"
 
 @interface ComposeViewController ()
+
+@property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *screenNameLabel;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 
+- (void)configure;
 - (void)customizeLeftBarButton;
 - (void)customizeRightBarButton;
 - (void)customizeTitleView;
@@ -26,7 +34,11 @@
 - (void)postUpdateWithParams:(NSMutableDictionary *)params
                      success:(void(^)(Tweet *tweet))success
                      failure:(void(^)(NSError *error))failure;
-- (void)setupTweet;
+- (void)setupProfileImageView;
+- (void)setupNameLabel;
+- (void)setupScreenNameLabel;
+- (void)setupStatusTextView;
+
 @end
 
 @implementation ComposeViewController
@@ -47,19 +59,22 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
-    [self setupTweet];
-    
-    User *user = [[Session instance] getUser];
-    NSLog(@"user: %@", user);
 
-    [self.textView becomeFirstResponder];
+    [self configure];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)configure
+{
+    [self setupProfileImageView];
+    [self setupNameLabel];
+    [self setupScreenNameLabel];
+    [self setupStatusTextView];
 }
 
 - (void)customizeLeftBarButton
@@ -165,10 +180,51 @@
                                            }];
 }
 
-- (void)setupTweet
+- (void)setupProfileImageView
+{
+    User *user = [[Session instance] getUser];
+    
+    NSURL *url = user.profileImageUrl;
+    UIImage *placeholder = [UIImage imageNamed:@"profile"];
+    
+    self.profileImageView.contentMode = UIViewContentModeScaleAspectFill;
+    self.profileImageView.layer.masksToBounds = YES;
+    self.profileImageView.layer.cornerRadius = 5.0f;
+    self.profileImageView.alpha = 0.5f;
+    
+    [self.profileImageView setImageWithURL:url
+                          placeholderImage:placeholder
+                                   options:SDWebImageRefreshCached
+                                 completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+                                     // Fade in image
+                                     [UIView beginAnimations:@"fade in" context:nil];
+                                     [UIView setAnimationDuration:0.5];
+                                     [self.profileImageView setAlpha:1.0f];
+                                     [UIView commitAnimations];
+                                 }
+               usingActivityIndicatorStyle:(UIActivityIndicatorViewStyleGray)];
+}
+
+- (void)setupNameLabel
+{
+    User *user = [[Session instance] getUser];
+    
+    self.nameLabel.font = [UIFont boldSystemFontOfSize:14.0f];
+    self.nameLabel.text = user.name;
+}
+
+- (void)setupScreenNameLabel
+{
+    User *user = [[Session instance] getUser];
+    
+    self.screenNameLabel.font = [UIFont systemFontOfSize:12.0f];
+    self.screenNameLabel.text = [@"@" stringByAppendingString:user.screenName];
+}
+
+- (void)setupStatusTextView
 {
     NSLog(@"setup tweet: %@", self.tweet);
-
+    
     NSArray *names = [self getScreenNames];
     NSLog(@"names: %@", names);
     
@@ -178,6 +234,7 @@
     }
     
     self.textView.text = [[NSString alloc] initWithFormat:@"%@%@", namesList, @"Hello World"];
+    [self.textView becomeFirstResponder];
 }
 
 @end
