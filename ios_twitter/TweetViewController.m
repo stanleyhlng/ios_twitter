@@ -11,6 +11,14 @@
 #import "TwitterClient.h"
 
 @interface TweetViewController ()
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentVIewMarginLeftConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentVIewMarginBottomConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentVIewMarginRightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentVIewMarginTopConstraint;
+
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UIView *contentView;
 - (void)customizeRightBarButton;
 - (void)customizeTitleView;
 - (void)setupTweet;
@@ -48,14 +56,23 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [self setupTweet];
+    //[self setupTweet];
+    
+    self.contentVIewMarginLeftConstraint.constant = 0;
+    self.contentVIewMarginBottomConstraint.constant = 0;
+    self.contentVIewMarginRightConstraint.constant = 0;
+    self.contentVIewMarginTopConstraint.constant = 0;
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-    [self setupTweet];
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    CGSize rect = self.scrollView.frame.size;
+    NSLog(@"scrollview: did rotate w%f h%f", rect.width, rect.height);
 }
 
 - (void)customizeRightBarButton
@@ -223,5 +240,6 @@
 {
     NSLog(@"update from compose view: %@", tweet);
 }
+
 
 @end
