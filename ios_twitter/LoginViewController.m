@@ -11,6 +11,7 @@
 #import "TwitterClient.h"
 #import "User.h"
 #import "Session.h"
+#import "AVHexColor.h"
 
 @interface LoginViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *signInButton;
@@ -29,6 +30,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        [self customizeLeftBarButton];
         [self customizeRightBarButton];
         [self customizeTitleView];
     }
@@ -59,6 +61,20 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)customizeLeftBarButton
+{
+    UIImage *image = [[UIImage imageNamed:@"twitter-white"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+    imageView.frame = CGRectMake(0, 0, 28, 28);
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
+ 
+    UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:imageView];
+    
+    self.navigationItem.leftBarButtonItem = barButtonItem;
 }
 
 - (void)customizeRightBarButton
