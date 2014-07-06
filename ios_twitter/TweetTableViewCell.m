@@ -150,7 +150,7 @@
     [self.favoriteButton setImage:image forState:UIControlStateNormal];
     self.favoriteButton.tintColor = color;
     
-    [self.favoriteButton addTarget:self action:@selector(handleFavorite) forControlEvents:UIControlEventTouchUpInside];
+    //[self.favoriteButton addTarget:self action:@selector(handleFavorite) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)setupReplyButton
@@ -160,7 +160,7 @@
     [self.replyButton setImage:image forState:UIControlStateNormal];
     self.replyButton.tintColor = [UIColor lightGrayColor];
     
-    [self.replyButton addTarget:self action:@selector(handleReply) forControlEvents:UIControlEventTouchUpInside];
+    //[self.replyButton addTarget:self action:@selector(handleReply) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)setupRetweetButton
@@ -180,7 +180,7 @@
     [self.retweetButton setImage:image forState:UIControlStateNormal];
     self.retweetButton.tintColor = color;
     
-    [self.retweetButton addTarget:self action:@selector(handleRetweet) forControlEvents:UIControlEventTouchUpInside];
+    //[self.retweetButton addTarget:self action:@selector(handleRetweet) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)setupProfileImageView
