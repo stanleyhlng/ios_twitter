@@ -7,7 +7,7 @@ Build a simple Twitter client that supports viewing a Twitter timeline and compo
 
 ## Walkthrough of all user stories
 
-[![image](https://raw.githubusercontent.com/wiki/stanleyhlng/ios_twitter/assets/ios_twitter.gif)](https://raw.githubusercontent.com/wiki/stanleyhlng/ios_yelp/assets/ios_twitter.gif)
+[![image](https://raw.githubusercontent.com/wiki/stanleyhlng/ios_twitter/assets/ios_twitter.gif)](https://raw.githubusercontent.com/wiki/stanleyhlng/ios_twitter/assets/ios_twitter.gif)
 
 ## Completed user stories
 
