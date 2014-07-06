@@ -208,7 +208,13 @@
         
         [self retweetStatusWithParams:params success:^(Tweet *tweet) {
             NSLog(@"[RETWEET] tweets: %@", tweet);
+            
             self.tweet = tweet;
+            self.retweetButton.tintColor = [AVHexColor colorWithHexString:@"#5C9138"];
+            self.retweetCountLabel.text = [tweet.retweetCount stringValue];
+            
+            [self.delegate updateFromTweetView:self update:tweet index:self.index];
+            
         } failure:nil];
     }
     else {
@@ -216,7 +222,11 @@
         
         [self destroyStatusWithParams:params success:^(Tweet *tweet) {
             NSLog(@"[UNRETWEET] tweets: %@", tweet);
+            
             self.tweet = tweet;
+            self.retweetButton.tintColor = [UIColor lightGrayColor];
+            
+            [self.delegate updateFromTweetView:self update:tweet index:self.index];
             
         } failure:nil];
     }

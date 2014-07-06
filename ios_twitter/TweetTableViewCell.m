@@ -15,6 +15,7 @@
 #import "AVHexColor.h"
 
 @interface TweetTableViewCell()
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *nameLabelWidthConstraint;
 - (void)handleFavorite;
 - (void)handleReply;
 - (void)handleRetweet;
@@ -267,6 +268,10 @@
     
     self.nameLabel.font = [UIFont boldSystemFontOfSize:14.0f];
     self.nameLabel.text = user.name;
+    [self.nameLabel sizeToFit];
+    
+    CGRect frame = self.nameLabel.frame;
+    self.nameLabelWidthConstraint.constant = frame.size.width;
 }
 
 - (void)setupRetweetLabel

@@ -47,6 +47,9 @@
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="253" verticalHuggingPriority="251" horizontalCompressionResistancePriority="748" text="Yahoo" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Qv-aW-Nde">
                                                 <rect key="frame" x="0.0" y="0.0" width="47" height="20"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="47" id="0ci-QG-fdw"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -221,6 +224,7 @@
                 <outlet property="favoriteButton" destination="NW8-uP-3qX" id="cdu-Cs-hT5"/>
                 <outlet property="favoriteCountLabel" destination="YBj-Fv-Tgr" id="x2I-tj-Z49"/>
                 <outlet property="nameLabel" destination="5Qv-aW-Nde" id="LBk-MC-qDH"/>
+                <outlet property="nameLabelWidthConstraint" destination="0ci-QG-fdw" id="Qs0-18-HFh"/>
                 <outlet property="profileImageView" destination="jeI-ox-f1Z" id="qlf-J6-0Op"/>
                 <outlet property="replyButton" destination="GqW-tU-7UH" id="fqO-gd-Ic6"/>
                 <outlet property="retweetButton" destination="57t-Er-beS" id="TnO-rd-eYA"/>

@@ -182,6 +182,7 @@
 - (void)handleTweetWithIndex:(NSInteger)index
 {
     NSLog(@"handle tweet with index: %d", index);
+    NSLog(@"tweet: %@", [self.tweets objectAtIndex:index]);
     
     TweetViewController *vc = [[TweetViewController alloc] init];
     vc.delegate = self;
