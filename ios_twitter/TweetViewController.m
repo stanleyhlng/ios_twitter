@@ -160,7 +160,9 @@
             self.tweet = tweet;
             self.favoriteButton.tintColor = [AVHexColor colorWithHexString:@"#FFAC33"];
             self.favoriteCountLabel.text = [tweet.favoriteCount stringValue];
-            
+
+            [self.delegate updateFromTweetView:self update:tweet index:self.index];
+
         } failure:nil];
     }
     else {
@@ -172,6 +174,8 @@
             self.tweet = tweet;
             self.favoriteButton.tintColor = [UIColor lightGrayColor];
             self.favoriteCountLabel.text = [tweet.favoriteCount stringValue];
+            
+            [self.delegate updateFromTweetView:self update:tweet index:self.index];
             
         } failure:nil];
      }

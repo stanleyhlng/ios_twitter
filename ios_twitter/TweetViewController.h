@@ -10,6 +10,14 @@
 #import "ComposeViewController.h"
 #import "Tweet.h"
 
+@class TweetViewController;
+
+@protocol TweetViewControllerDelegate <NSObject>
+- (void)updateFromTweetView:(TweetViewController *)controller update:(Tweet *)tweet index:(NSInteger)index;
+@end
+
 @interface TweetViewController : UIViewController<ComposeViewControllerDelegate>
-@property(strong, nonatomic) Tweet* tweet;
+@property (nonatomic, weak) id <TweetViewControllerDelegate> delegate;
+@property (nonatomic, assign) NSInteger index;
+@property (nonatomic, strong) Tweet* tweet;
 @end

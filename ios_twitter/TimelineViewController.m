@@ -184,6 +184,8 @@
     NSLog(@"handle tweet with index: %d", index);
     
     TweetViewController *vc = [[TweetViewController alloc] init];
+    vc.delegate = self;
+    vc.index = index;
     vc.tweet = [self.tweets objectAtIndex:index];
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -318,6 +320,17 @@
 {
     NSLog(@"update from tweet table view cell: %d %@", index, tweet);
     
+    [self.tweetsTableView reloadData];
+}
+
+
+#pragma TweetViewDelegate methods
+
+- (void)updateFromTweetView:(TweetViewController *)controller update:(Tweet *)tweet index:(NSInteger)index
+{
+    NSLog(@"update from tweet view: %d %@", index, tweet);
+
+    self.tweets[index] = tweet;
     [self.tweetsTableView reloadData];
 }
 
