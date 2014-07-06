@@ -441,7 +441,7 @@
         text = self.tweet.retweetedStatus.text;
     }
     
-    self.statusTextLabel.font = [UIFont systemFontOfSize:14.0f];
+    self.statusTextLabel.font = [UIFont systemFontOfSize:18.0f];
     self.statusTextLabel.text = text;
 
     CGRect frame;
