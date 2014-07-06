@@ -37,7 +37,7 @@
                                            success:(void(^)(AFHTTPRequestOperation *operation, NSArray *tweets))success
                                            failure:(void(^)(AFHTTPRequestOperation *operation, NSError *error))failure
 {
-    int count = 10;
+    int count = 4;
     
     if (params == nil) {
         params =
