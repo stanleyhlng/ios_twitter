@@ -144,7 +144,6 @@
 - (void)handleFavorite
 {
     NSLog(@"handle favorite");
-
     NSLog(@"tweet.favorited: %@", self.tweet.favorited);
     
     NSMutableDictionary *params =
@@ -157,7 +156,11 @@
      
         [self createFavoriteWithParams:params success:^(Tweet *tweet) {
             NSLog(@"[FAVORITE] tweets: %@", tweet);
+
             self.tweet = tweet;
+            self.favoriteButton.tintColor = [AVHexColor colorWithHexString:@"#FFAC33"];
+            self.favoriteCountLabel.text = [tweet.favoriteCount stringValue];
+            
         } failure:nil];
     }
     else {
@@ -165,7 +168,11 @@
      
         [self destroyFavoriteWithParams:params success:^(Tweet *tweet) {
             NSLog(@"[UNFAVORITE] tweets: %@", tweet);
+            
             self.tweet = tweet;
+            self.favoriteButton.tintColor = [UIColor lightGrayColor];
+            self.favoriteCountLabel.text = [tweet.favoriteCount stringValue];
+            
         } failure:nil];
      }
 }
